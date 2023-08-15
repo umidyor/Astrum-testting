@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegisterPage</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Registration📝</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="full_name"><b>Full Name</b></label>
+            <input class="fname" type="text" id="full_name" name="full_name" required>
+
+            <label for="username"><b>Username</label>
+            <input class="username" type="text" id="username" name="username" required>
+
+            <label for="email">Email</label>
+            <input class="email" type="email" id="email" name="email" required>
+
+            <label for="password">Password</b></label>
+            <input class="password" type="password" id="password" name="password" minlength="5" required>
+                ShowPassword
+                <input type="checkbox" id="showPassword">
+
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('password');
+            const showPasswordCheckbox = document.getElementById('showPassword');
+
+            showPasswordCheckbox.addEventListener('change', function () {
+                if (showPasswordCheckbox.checked) {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
