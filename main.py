@@ -8,7 +8,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 django.setup()
 #
 # # Now you can import and use your models
-from register.models import Regsiter_site
+from django.contrib.auth.models import User
 
 # username = "Qodir"
 # password = "qodirjon12"
@@ -36,5 +36,24 @@ import secrets
 # random_token = generate_random_token(32)
 # print("Random Token:", random_token)
 
-a=Regsiter_site.objects.get(email="umidyor007@gmail.com")
-print(a.pk)
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+
+try:
+    user = User.objects.get(username="Jamandar")
+    user_id = user.password
+    # user_id="Samandar_131415"
+    # user.save()# This is the user's primary key (ID)
+    print(user_id)
+except ObjectDoesNotExist:
+    # Handle the case when the user with the provided email doesn't exist
+    print("yoq")
+# email="Jalol"
+# a=User.objects.get(username=email)
+# print(a.email)
+
+from blogs.models import Post
+# def get_title():
+#     return Post.objects.title
+#
+# print(get_title())

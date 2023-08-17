@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/view_post.css' %}">
+</head>
+<body>
+
+    <div class="post-container">
+        <h2>{{ post.title }}</h2>
+        <p class="published-date">Published: {{ post.publish }}</p>
+        <img src="{{ post.picture.url }}" alt="Post Image">
+        <p class="description">{{ post.description }}</p>
+        <p><strong>Auhtor:<bold>{{post.author}}</bold></strong> </p>
+        <a href="{% url 'profile' %}">Back to Profile</a>
+    </div>
+
+</body>
+</html>
+
+

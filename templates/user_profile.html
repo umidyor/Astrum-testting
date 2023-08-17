@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body style="background-image: url('{% static 'css/register.jpg' %}'); background-size: cover;">
+
+    <h2>Welcome to Your Profile, {{ request.user.username }}!</h2>
+
+    <h3>Your Posts:</h3>
+    <ul>
+        {% for post in user_posts %}
+            <li>
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.description|slice:":20" }}...</p>
+                <img src="{{ post.picture.url }}" alt="Post Image" style="width: 400px; height: auto;">
+                <p><a href="{% url 'posts' post.id %}">Published: {{ post.publish }}</a></p>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
+
+

@@ -1,14 +1,22 @@
 from django.urls import path
-from .views import register,login_,logout_view,send_test_email,forgot_password,change_password,home  # Import the view function or class from the test app
+from .views import *
+from django.contrib.auth import views as auth_views
+from . import views
+
+
+
 
 urlpatterns = [
-    path('',home,name='home'),
-    path('register', register, name="register"),  # Example URL pattern for testing
-    path('login',login_,name="login"),
-    path('logout',logout_view,name='logout'),
-    path('sent',send_test_email,name='sent'),
-    path('forgot',forgot_password,name="forgot"),
-    path('change_password/<int:pk>/<str:token>',change_password,name="change_password")
-    # Define other URL patterns for the test app here
+    path('',home_page, name='home'),
+    path('login/',login_page, name='login'),
+    path('logout/',logout_page, name='logout'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(
+        template_name='password_reset_form.html'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(
+        template_name='password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_confirm.html"), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"), name='password_reset_complete'),
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
 ]
-

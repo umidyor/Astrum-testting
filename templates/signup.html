@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body style="background-image: url('{% static 'css/register.jpg' %}'); background-size: cover;">
+    <div class="container">
+        <h2 style="color:red">Register📝</h2>
+        <!-- Display the error message div -->
+        <div id="error-message" class="error-message"></div>
+
+        <form method="post" id="signup-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="password-field">
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="password-field">
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="showPassword"> Show Password
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}"><strong>Log In</strong></a></p>
+    </div>
+
+<script>
+    // Toggle password visibility
+    function togglePasswordVisibility() {
+        var passwordFields = document.querySelectorAll('.password-field');
+        for (var i = 0; i < passwordFields.length; i++) {
+            if (passwordFields[i].type === 'password') {
+                passwordFields[i].type = 'text';
+            } else {
+                passwordFields[i].type = 'password';
+            }
+        }
+    }
+
+    document.getElementById('showPassword').addEventListener('change', function() {
+        togglePasswordVisibility();
+    });
+
+    // Password strength check (you can implement this logic)
+    function checkPasswordStrength(password) {
+        // Implement your password strength check logic here
+        // Return true for strong password, false for weak password
+        return true;
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+        var password1Field = document.querySelector('[name="password1"]');
+        var password2Field = document.querySelector('[name="password2"]');
+        var passwordStrength = checkPasswordStrength(password1Field.value);
+
+        // Check for password strength
+        if (!passwordStrength) {
+            showError('Password is too weak.', password1Field);
+            event.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

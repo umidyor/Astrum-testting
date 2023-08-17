@@ -1,92 +1,72 @@
-/* Style for the login page */
+/* login.css */
 body {
     margin: 0;
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #f5f5f5, #f0f0f0);
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-image: url('{% static "images/login-bg.gif" %}');
+    background-size: cover;
 }
 
-.login-container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
 }
 
-.login-box {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+h1 {
     text-align: center;
-}
-
-h2 {
     margin-bottom: 20px;
     color: #333;
 }
 
 .form-group {
-    position: relative;
-    margin-bottom: 25px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #007bff;
-    color: #333;
-    font-size: 16px;
+    margin-bottom: 15px;
 }
 
 label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transition: 0.5s;
-    color: #666;
+    font-weight: bold;
+    color: black;
 }
 
-input:focus + label,
-input:valid + label {
-    top: -20px;
-    font-size: 14px;
-    color: #007bff;
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 3px;
+    background-color: #007BFF;
     color: #fff;
-    font-size: 16px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-p {
-    margin-top: 15px;
-    font-size: 14px;
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
 }
 
-a:hover {
-    text-decoration: underline;
+.checkbox-group label {
+    margin-left: 10px;
 }
