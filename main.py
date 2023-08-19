@@ -38,16 +38,29 @@ import secrets
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from blogs.models import Post,Edd
 
-try:
-    user = User.objects.get(username="Jamandar")
-    user_id = user.password
-    # user_id="Samandar_131415"
-    # user.save()# This is the user's primary key (ID)
-    print(user_id)
-except ObjectDoesNotExist:
-    # Handle the case when the user with the provided email doesn't exist
-    print("yoq")
+id=13
+post_id_inPost=Post.objects.get(slug="Shaxmat-musobaqasi")
+edd=Edd.objects.filter(post_id=post_id_inPost.pk).exists()
+if edd:
+    edd = Edd.objects.filter(post_id=post_id_inPost.pk)
+    for i in edd:
+        print(i.full_name)
+    # print(edd.post_id)
+    # print(edd.full_name)
+    # print(edd.phone_number)
+    # print(edd.season)
+
+# try:
+#     user = User.objects.get(username="Jamandar")
+#     user_id = user.password
+#     # user_id="Samandar_131415"
+#     # user.save()# This is the user's primary key (ID)
+#     print(user_id)
+# except ObjectDoesNotExist:
+#     # Handle the case when the user with the provided email doesn't exist
+#     print("yoq")
 # email="Jalol"
 # a=User.objects.get(username=email)
 # print(a.email)

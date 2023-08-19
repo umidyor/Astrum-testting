@@ -15,10 +15,10 @@
     <ul>
         {% for post in user_posts %}
             <li>
-                <h4>{{ post.title }}</h4>
+                <h4><a href="{%url 'edds' post.slug %}">{{ post.title }}</a></h4>
                 <p>{{ post.description|slice:":20" }}...</p>
                 <img src="{{ post.picture.url }}" alt="Post Image" style="width: 400px; height: auto;">
-                <p><a href="{% url 'posts' post.id %}">Published: {{ post.publish }}</a></p>
+                <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a></p>
 
             </li>
         {% endfor %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/edd_users.css' %}">
+    <title>UsersEdd</title>
+</head>
+<body>
+<form method="POST">
+    <div class="container">
+        <ul>
+            {% for post in user_posts %}
+                <li>
+                    <h4>{{ post.title }}</h4>
+                    <p>{{ post.description}}</p>
+                    <img src="{{ post.picture.url }}" alt="Post Image" style="width: 400px; height: auto;">
+                    <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label for="season">Season</label>
+                <select id="season" name="season">
+                    <option value="MS4">MS4</option>
+                    <option value="MS5">MS5</option>
+                    <option value="MS6">MS6</option>
+                    <option value="MS7">MS7</option>
+                    <option value="MS8">MS8</option>
+                    <option value="MS9">MS9</option>
+                    <option value="MS10">MS10</option>
+                    <option value="MS11">MS11</option>
+                    <option value="MS12">MS12</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+            </div>
+            <button type="submit">Submit</button>
+</form>
+    </div>
+</body>
+</html>

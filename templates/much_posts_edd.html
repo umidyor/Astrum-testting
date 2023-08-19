@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EddsForYourPosts</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/much_posts_edd.css' %}">
+</head>
+<body>
+<h1>Ushbu postga so'rovnomani to'ldirganlar</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Post ID</th>
+                <th>Full Name</th>
+                <th>Main Season</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for edd in post_any %}
+            <tr>
+                <td>{{ edd.pk }}</td>
+                <td>{{ edd.full_name }}</td>
+                <td>{{ edd.season }}</td>
+                <td>{{ edd.phone_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
