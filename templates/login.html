@@ -5,41 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signuplogin.css' %}">
 </head>
-<body style="background-image: url('{% static 'css/register.jpg' %}'); background-size: cover;">
-        {% if request.user.is_authenticated %}
-            <p>Hello, {{ request.user.username }}, how are you?</p>
-            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
-        {% else %}
-             <div class="container">
-        <h1>Login</h1>
-        <!-- Display the error message div -->
-        <div id="error-message" class="error-message"></div>
-
-        <form method="post" id="login-form">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="id_username" style="color:black;">Username</label>
-                <input type="text" name="username" id="id_username">
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form">
+                <div class="swipe">
+                    <div class="login-form">
+                        <!-- Login Form -->
+                        <h2>Login🔐</h2>
+                        <form method="post" id="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="login-username">Username</label>
+                                <input type="text" id="login-username" name="username" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" name="password" placeholder="Password">
+                                <!-- Show Password Checkbox -->
+                                <input type="checkbox" id="showPassword">
+                                <label for="showPassword">Show Password</label>
+                            </div>
+                            <p>Don't have an account? <a href="{% url 'signup' %}" style="color: blue;">Sign Up</a></p>
+                            <p>You are forgotten password? <a href="{%url 'password_reset'%}" style="color: blue;">ForgotPassword</a></p>
+                            <button type="submit">Login</button>
+                        </form>
+                        <!-- Django Help Tags -->
+                        {% if form.username.errors %}
+                            <div class="help-message">{{ form.username.errors }}</div>
+                        {% endif %}
+                        {% if form.password.errors %}
+                            <div class="help-message">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="id_password" style="color:black;">Password</label>
-                <input type="password" name="password" id="id_password" class="password-field">
-            </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="showPassword">Show Password
-            </div>
-            <button type="submit">Log In</button>
-        </form>
-        <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
-        <p>You are forgotten password? <a href="{%url 'password_reset'%}">ForgotPassword</a></p>
+        </div>
     </div>
 
     <script>
         // Toggle password visibility
         function togglePasswordVisibility() {
-            var passwordField = document.getElementById('id_password');
+            var passwordField = document.getElementById('login-password');
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
             } else {
@@ -53,47 +62,6 @@
 
         // You can add more JavaScript code here for validation if needed
     </script>
-        {% endif %}
-<!--    <div class="container">-->
-<!--        <h1>Login</h1>-->
-<!--        &lt;!&ndash; Display the error message div &ndash;&gt;-->
-<!--        <div id="error-message" class="error-message"></div>-->
-
-<!--        <form method="post" id="login-form">-->
-<!--            {% csrf_token %}-->
-<!--            <div class="form-group">-->
-<!--                <label for="id_username" style="color:black;">Username</label>-->
-<!--                <input type="text" name="username" id="id_username">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="id_password" style="color:black;">Password</label>-->
-<!--                <input type="password" name="password" id="id_password" class="password-field">-->
-<!--            </div>-->
-<!--            <div class="checkbox-group">-->
-<!--                <input type="checkbox" id="showPassword">Show Password-->
-<!--            </div>-->
-<!--            <button type="submit">Log In</button>-->
-<!--        </form>-->
-<!--        <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>-->
-<!--        <p>You are forgotten password? <a href="{%url 'password_reset'%}">ForgotPassword</a></p>-->
-<!--    </div>-->
-
-<!--    <script>-->
-<!--        // Toggle password visibility-->
-<!--        function togglePasswordVisibility() {-->
-<!--            var passwordField = document.getElementById('id_password');-->
-<!--            if (passwordField.type === 'password') {-->
-<!--                passwordField.type = 'text';-->
-<!--            } else {-->
-<!--                passwordField.type = 'password';-->
-<!--            }-->
-<!--        }-->
-
-<!--        document.getElementById('showPassword').addEventListener('change', function() {-->
-<!--            togglePasswordVisibility();-->
-<!--        });-->
-
-<!--        // You can add more JavaScript code here for validation if needed-->
-<!--    </script>-->
 </body>
 </html>
+
