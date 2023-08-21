@@ -4,25 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <title>Posts</title>
+    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
 </head>
 <body style="background-image: url('{% static 'css/register.jpg' %}'); background-size: cover;">
 
     <h2>Welcome to Your Profile, {{ request.user.username }}!</h2>
 
-    <h3>Your Posts:</h3>
+ {% if user_posts %}
     <ul>
         {% for post in user_posts %}
             <li>
-                <h4><a href="{%url 'edds' post.slug %}">{{ post.title }}</a></h4>
+                <h4><a href="{% url 'edds' post.slug %}">{{ post.title }}</a></h4>
                 <p>{{ post.description|slice:":20" }}...</p>
                 <img src="{{ post.picture.url }}" alt="Post Image" style="width: 400px; height: auto;">
-                <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a></p>
-
+                <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a>
+                    <button type="button" class="deletebtn"><a href="{% url 'delete_post' post.id post.slug %}" >Delete</a></button>
+                    <button type="button" class="editpost"><a href=" {% url 'edit_post' post.id post.slug %}">EditPost</a></button>
+                </p>
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p><h1>You have no posts😕.</h1></p>
+    {% endif %}
+
 
 </body>
 </html>

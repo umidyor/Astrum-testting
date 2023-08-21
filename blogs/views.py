@@ -53,9 +53,7 @@ def view_post(request, post_id,post_slug):
 
 def much_posts_edd(request,post_slug):
     post = get_object_or_404(Post,slug=post_slug)
-    print(post.slug)
     post_id_inPost = Post.objects.get(slug=post.slug)
-    print(post_id_inPost.pk)
     edd = Edd.objects.filter(post_id=post_id_inPost.pk).exists()
     if edd:
         edd_ = Edd.objects.filter(post_id=post_id_inPost.pk)
@@ -68,4 +66,35 @@ def much_posts_edd(request,post_slug):
     else:
         return HttpResponse("blmasam")
 
+
+
+def delete_post(request,post_id,post_slug):
+    post=get_object_or_404(Post,id=post_id,slug=post_slug)
+    if post.delete():
+        exist=Edd.objects.filter(post_id=post_id).exists()
+        if exist:
+            edds = Edd.objects.filter(post_id=post_id)
+            for edd in edds:
+                edd.delete()
+            return render(request,"redirects.html")
+        # return HttpResponse("""Succsesfully deleted this post <a href="{% url 'login' %}"></a>""")
+    return render(request,"user_profile.html")
+
+
+
+def edit_post(request, post_id,post_slug):
+    post = Post.objects.get(id=post_id,slug=post_slug)
+
+    if request.method != 'POST':
+        form = PostForm(instance=post)
+
+    else:
+        form = PostForm(instance=post, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+
+    context = {'post': post, 'form': form}
+    return render(request, 'edit_post.html', context)
 

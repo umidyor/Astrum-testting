@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DeletePost</title>
+</head>
+<body>
+    {%for p in post%}
+        <button type="button" class="deletebtn"><a href="{% url 'delete_post' p.id p.slug %}" >Delete</a></button>
+    {%endfor%}
+</body>
+</html>

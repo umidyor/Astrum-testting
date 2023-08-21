@@ -16,7 +16,16 @@ class Post(models.Model):
     publish = models.DateTimeField(default=datetime.now)
     description = models.TextField()
 
-
+    # def save(self, *args, **kwargs):
+    #     if not self.pk:
+    #         # If custom_id is not set, assign the next available integer
+    #         last_record = Post.objects.last()
+    #         if last_record:
+    #             self.pk = last_record.pk + 1
+    #         else:
+    #             # If there are no existing records, start from 1
+    #             self.pk = 1
+    #     super().save(*args, **kwargs)
 
 
 
@@ -41,10 +50,22 @@ class Edd(models.Model):
     #     MS11 =11, 'MS11'
     #     MS12 =12, 'MS12'
 
+    custom_id = models.PositiveIntegerField(primary_key=True, unique=True)
     full_name=models.CharField(max_length=200)
     season=models.CharField(max_length=10)
     phone_number=models.BigIntegerField()
     post_id=models.CharField(max_length=20)
+
+    def save(self, *args, **kwargs):
+        if not self.custom_id:
+            # If custom_id is not set, assign the next available integer
+            last_record = Edd.objects.last()
+            if last_record:
+                self.custom_id = last_record.custom_id + 1
+            else:
+                # If there are no existing records, start from 1
+                self.custom_id = 1
+        super().save(*args, **kwargs)
 
 
     def __str__(self):

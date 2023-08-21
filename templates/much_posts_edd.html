@@ -11,7 +11,8 @@
     <table>
         <thead>
             <tr>
-                <th>Post ID</th>
+                <th>User ID</th>
+                <th>Custom ID</th>
                 <th>Full Name</th>
                 <th>Main Season</th>
                 <th>Phone Number</th>
@@ -20,7 +21,8 @@
         <tbody>
             {% for edd in post_any %}
             <tr>
-                <td>{{ edd.pk }}</td>
+                <td>{{edd.pk}}</td>
+                <td>{{ edd.custom_id }}</td>
                 <td>{{ edd.full_name }}</td>
                 <td>{{ edd.season }}</td>
                 <td>{{ edd.phone_number }}</td>
