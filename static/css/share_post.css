@@ -1,0 +1,36 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0; /* Default background color */
+    }
+
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Centers the container vertically */
+    }
+
+    input {
+        width: 300px; /* Adjust the width as needed */
+        height: 50px; /* Adjust the height as needed */
+        font-size: 20px; /* Increase font size for a large input field */
+        text-align: center; /* Center text horizontally */
+        margin-bottom: 20px; /* Add some space below the input field */
+    }
+
+    button {
+        width: 150px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+        font-size: 16px; /* Font size for the button */
+        background-color: #3498db; /* Default button background color */
+        color: #fff; /* Button text color */
+        cursor: pointer;
+        transition: background-color 0.3s; /* Smooth transition for color change */
+    }
+
+    button:hover {
+        background-color: #27ae60; /* Change button color to green on hover */
+    }
+</style>

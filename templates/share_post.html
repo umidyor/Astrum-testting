@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+    <link rel="stylesheet" href="{%static 'css/share_post.css'%}">
+    <title>Copy Link</title>
+</head>
+<body>
+    <div class="centered-container">
+        <input type="text" id="postLink" value="{{ post_url.get_absolute_url }}">
+        <button id="copyLinkButton">Copy Link</button>
+    </div>
+
+    <script>
+        document.getElementById("copyLinkButton").addEventListener("click", function() {
+            const postLink = document.getElementById("postLink");
+            postLink.select();
+            document.execCommand("copy");
+            postLink.setSelectionRange(0, 0);
+            this.textContent = "Link Copied!";
+            this.style.backgroundColor = "green"; // Change button color to green
+        });
+    </script>
+</body>
+</html>
+
+

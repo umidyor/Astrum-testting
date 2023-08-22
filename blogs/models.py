@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
 # Create your models here.
-
+from django.urls import reverse
 
 def get_default_author():
     return User.objects.first()
@@ -16,6 +16,9 @@ class Post(models.Model):
     publish = models.DateTimeField(default=datetime.now)
     description = models.TextField()
 
+    def get_absolute_url(self):
+        # Use the 'posts' URL pattern name with appropriate arguments
+        return reverse('posts', args=[str(self.id), self.slug])
     # def save(self, *args, **kwargs):
     #     if not self.pk:
     #         # If custom_id is not set, assign the next available integer

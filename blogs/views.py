@@ -98,3 +98,7 @@ def edit_post(request, post_id,post_slug):
     context = {'post': post, 'form': form}
     return render(request, 'edit_post.html', context)
 
+
+def share_post(request, post_id,post_slug):
+    post_url = get_object_or_404(Post, id=post_id,slug=post_slug)
+    return render(request, 'share_post.html', {'post_url': post_url})

@@ -10,6 +10,7 @@ urlpatterns=[
     path('edds/<slug:post_slug>/',much_posts_edd,name="edds"),
     path('delete/<int:post_id>/<slug:post_slug>/',delete_post,name='delete_post'),
     path('edit/<int:post_id>/<slug:post_slug>',edit_post, name='edit_post'),
+    path('share_post/<int:post_id>/<slug:post_slug>',share_post,name='share_post'),
 ]
 
 if settings.DEBUG:

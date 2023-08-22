@@ -22,6 +22,9 @@
                     <button type="button" class="deletebtn"><a href="{% url 'delete_post' post.id post.slug %}" >Delete</a></button>
                     <button type="button" class="editpost"><a href=" {% url 'edit_post' post.id post.slug %}">EditPost</a></button>
                 </p>
+                <p>
+                    <button type="button" class="sharepost"><a href="{% url 'share_post' post.id post.slug %}"><bold>SharePOST</bold></a></button>
+                </p>
             </li>
         {% endfor %}
     </ul>
