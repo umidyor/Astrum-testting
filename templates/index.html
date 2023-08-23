@@ -5,19 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the Home Page</h1>
+        <h1 className="h1color">Welcome to the our site</h1>
         {% if request.user.is_authenticated %}
-            <p>Hello, {{ request.user.username }}, how are you?</p>
-            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
-
+            <div class="button-container">
+                <button class="button" onclick="redirectTo('create_test')" id="createTestButton">Create Test</button>
+                <button class="button" onclick="redirectTo('create_questionnaire')" id="createQuestionnaireButton">Create Questionnaire</button>
+            </div>
         {% else %}
-            <p>Hello and welcome!</p>
-            <a href="{% url 'login' %}" class="login-link">Login</a>
+            <div class="button-container">
+                <button class="button" onclick="redirectTo('create_test')" id="createTestButton">Create Test</button>
+                <button class="button" onclick="redirectTo('create_questionnaire')" id="createQuestionnaireButton">Create Questionnaire</button>
+            </div>
         {% endif %}
     </div>
+    <script src="{% static 'js/index.js'%}"></script>
 </body>
 </html>

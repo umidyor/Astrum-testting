@@ -1,0 +1,51 @@
+/* index.css */
+body {
+    background: url("https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg?w=2000") no-repeat;
+    background-size: cover;
+    filter: brightness(1.2) contrast(1.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+
+
+
+.h1color{
+    font-size: large;
+    font-style: italic;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top:-400px;
+    color:green;
+}
+
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #000; /* Set default color to black */
+    color: #fff;
+    font-size: 16px;
+    border: 2px solid #000; /* Add a subtle border */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, color 0.3s, border-color 0.3s; /* Transition color and border change */
+}
+
+.button:hover {
+    background-color: #333; /* Darken the color on hover */
+    transform: scale(1.05);
+    border-color: #333; /* Change border color on hover */
+}
+
+.button:active {
+    background-color: #555; /* Change color on click */
+    border-color: #555; /* Change border color on click */
+}

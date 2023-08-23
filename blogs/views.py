@@ -26,7 +26,7 @@ def create_post(request):
             post.author = request.user
             post.slug = request.POST['title'].replace(" ","-").replace(",","").replace("'","").replace(".","")  # Access the title value using request.POST
             post.save()
-            return redirect('home')
+            return redirect('profile')
     else:
         form = PostForm()
     context = {'form': form}
