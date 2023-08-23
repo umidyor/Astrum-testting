@@ -15,11 +15,9 @@ body {
 
 
 .h1color{
-    font-size: large;
-    font-style: italic;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin-top:-400px;
-    color:green;
+    margin-bottom:630px;
+    color:rgb(0, 0, 0);
 }
 
 
@@ -37,15 +35,21 @@ body {
     border: 2px solid #000; /* Add a subtle border */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s, color 0.3s, border-color 0.3s; /* Transition color and border change */
-}
+    border-radius: 20px;
 
+}
 .button:hover {
-    background-color: #333; /* Darken the color on hover */
+    background-color: rgb(255, 255, 255);
+    color: rgb(1, 5, 9);
+  }
+.button:hover {
+    background-color: rgb(255, 0, 0); /* Darken the color on hover */
     transform: scale(1.05);
-    border-color: #333; /* Change border color on hover */
+    border-color: rgb(255, 0, 0); /* Change border color on hover */
 }
 
 .button:active {
-    background-color: #555; /* Change color on click */
-    border-color: #555; /* Change border color on click */
+    background-color: rgb(255, 255, 255); /* Change color on click */
+    border-color: rgb(255, 255, 255); /* Change border color on click */
 }
+
