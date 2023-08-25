@@ -1,0 +1,89 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>List Navigation</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            var list = {{ context|safe }};-->
+<!--            var currentIndex = 0;-->
+
+<!--            function updateContent() {-->
+<!--                $('#currentItem').text(list[currentIndex]);-->
+<!--                $('#prevBtn').prop('disabled', currentIndex === 0);-->
+<!--                $('#nextBtn').text(currentIndex === list.length - 1 ? 'Submit' : 'Next');-->
+<!--            }-->
+
+<!--            $('#prevBtn').click(function () {-->
+<!--                currentIndex = Math.max(currentIndex - 1, 0);-->
+<!--                updateContent();-->
+<!--            });-->
+
+<!--            $('#nextBtn').click(function () {-->
+<!--                if (currentIndex === list.length - 1) {-->
+<!--                    // Handle submit logic here-->
+<!--                    alert('Form submitted');-->
+<!--                } else {-->
+<!--                    currentIndex = Math.min(currentIndex + 1, list.length - 1);-->
+<!--                    updateContent();-->
+<!--                }-->
+<!--            });-->
+
+<!--            // Initial content update-->
+<!--            updateContent();-->
+<!--        });-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<p id="currentItem"></p>-->
+
+<!--<button id="prevBtn" disabled>Previous</button>-->
+<!--<button id="nextBtn">Next</button>-->
+
+<!--</body>-->
+<!--</html>--><!DOCTYPE html>
+<html>
+<head>
+    <title>Test Passing Site</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var form = {{ form|safe }};
+            var currentIndex = 0;
+            var questionCount = {{ question_count }};
+
+            function updateContent() {
+                var currentQuestion = form[currentIndex];
+                $('#currentItem').text(currentQuestion.text);
+                $('#prevBtn').prop('disabled', currentIndex === 0);
+                $('#nextBtn').text(currentIndex === questionCount - 1 ? 'Submit' : 'Next');
+
+                // Clear previous options
+                $('#optionsContainer').empty();
+
+                if (currentQuestion.type === 'true_false') {
+                    var trueFalseHtml = '<label><input type="radio" name="selected_option" value="true">True</label><br>';
+                    trueFalseHtml += '<label><input type="radio" name="selected_option" value="false">False</label><br>';
+                    $('#optionsContainer').html(trueFalseHtml);
+                }
+            }
+
+            // ... Rest of the JavaScript code ...
+
+            // Initial content update
+            updateContent();
+        });
+    </script>
+</head>
+<body>
+
+<p id="currentItem"></p>
+
+<div id="optionsContainer"></div>
+
+<button id="prevBtn" disabled>Previous</button>
+<button id="nextBtn">Next</button>
+
+</body>
+</html>

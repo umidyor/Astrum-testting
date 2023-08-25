@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Test Types</title>
+</head>
+<style>
+
+</style>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'TestingSystem:create-multiple' test_id=test_id test_description=slug %}" id="multipleChoiceLink">Multiple</a></li>
+            <li><a href="{% url 'TestingSystem:create-free-text' test_id=test_id test_description=slug %}" id="freeTextSection">FreeText</a></li>
+            <li><a href="{% url 'TestingSystem:create-true-false' test_id=test_id test_description=slug %}" id="trueFalseLink">TrueFalse</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Test Creator</h1>
+        <div class="create-question">
+            <h2>{{ slug }}</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ question_form.media }}
+                <div class="form-error">{{ question_form.non_field_errors }}</div>
+                {% for f in question_form %}
+                    <p><label for="{{ f.id_for_label }}">Question Text: </label>{{ f }}</p>
+                    <div class="form-error"> {{ f.errors }} </div>
+                {% endfor %}
+                {{ option_formset.management_form }}
+                {% for option_form in option_formset %}
+                    <div class="form-error">{{ option_form.non_field_errors }}</div>
+                    {{ option_form.as_p }}
+                    {{ option_form.media }}
+                {% endfor %}
+                <button type="submit" id="add-question">Add Question</button>
+             </form>
+        </div>
+    </div> <!-- Add your FreeText test content here -->
+</body>
+</html>

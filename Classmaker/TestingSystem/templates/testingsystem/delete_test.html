@@ -1,0 +1,10 @@
+{% block content %}
+  <h2>Delete Question</h2>
+  <p>Are you sure you want to delete the question "{{ object.title }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'TestingSystem:tests' %}">Cancel</a>
+  </form>
+{% endblock %}

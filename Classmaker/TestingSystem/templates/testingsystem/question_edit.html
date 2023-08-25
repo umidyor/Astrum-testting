@@ -1,0 +1,15 @@
+<!-- edit_question.html -->
+
+{% block content %}
+  <h2>Edit Question</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ form1.media }}
+    {% for form1 in option_forms %}
+      {{ form1.as_table }}
+      {{ form1.media }}
+    {% endfor %}
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

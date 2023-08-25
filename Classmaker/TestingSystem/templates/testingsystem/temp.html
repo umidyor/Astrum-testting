@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<title>Testing System - Home</title>
+</head>
+<body>
+  <header>
+    <h1>Testing System</h1>
+  </header>
+
+  <div class="container">
+    <div class="description">
+      <h2>Welcome to Our Testing System</h2>
+      <p>This is a platform designed to help you assess and evaluate your knowledge and skills. Whether you're a student preparing for exams or a professional looking to enhance your expertise, our testing system provides a range of assessments to meet your needs.</p>
+      <p>Explore our various testing categories and take advantage of our user-friendly interface to track your progress and achieve your goals.</p>
+    </div>
+
+    <div class="build-test">
+      <form method="POST" action="{% url 'TestingSystem:home' %}">
+        {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% for f in form %}
+          <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+          <div class="form-error"> {{ f.errors }} </div>
+
+        {% endfor %}
+        <button type="submit" id="create-test">Create Test</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
