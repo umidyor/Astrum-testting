@@ -11,6 +11,8 @@ urlpatterns=[
     path('delete/<int:post_id>/<slug:post_slug>/',delete_post,name='delete_post'),
     path('edit/<int:post_id>/<slug:post_slug>',edit_post, name='edit_post'),
     path('share_post/<int:post_id>/<slug:post_slug>',share_post,name='share_post'),
+    path('media/<path:file_path>', serve_media, name='serve_media'),
+    path('redirect_delete',redirects_page,name='redirect_delete'),
 ]
 
 if settings.DEBUG:

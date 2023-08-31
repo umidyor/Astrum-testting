@@ -1,8 +1,16 @@
 /* Add your styles for the user profile here */
+
+.post-image {
+    max-width: 40%;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+}
 ul {
     list-style: none;
     padding: 0;
 }
+
 
 li {
     border: 1px solid #ccc;
@@ -21,13 +29,32 @@ p {
     margin: 5px 0;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin-top: 10px;
-}
+
 
 .deletebtn{
     color:red;
+}
+
+/* user_profile.css */
+/* CSS for positioning the search form */
+.search-container {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    left: 10px; /* Adjust the left position as needed */
+    z-index: 1;
+}
+
+/* Style the search input and button */
+.search-container input[type="text"] {
+    padding: 5px;
+}
+
+.search-container button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+.input1{
+
 }

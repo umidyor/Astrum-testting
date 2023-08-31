@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from .forms import SignUpForm
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.core.cache import cache
+
 import secrets
 def login_required_decorator(func):
     return login_required(func, login_url='home')
@@ -23,9 +25,12 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, password=password, username=username)
-        if user is not None:
+        user2=authenticate(request,passwor=password,email=username)
+        if user or user2:
             login(request, user)
             return redirect("home")
+    if request.user.is_authenticated:
+        return redirect("home")
 
 
     return render(request, 'login.html')
@@ -71,3 +76,10 @@ class SignUpView(CreateView):
 #             return HttpResponse("Don't find email:(")
 #
 #     return render(request,"forgot_password.html")
+
+def custom_404_page(request,exception):
+    return render(request, '404.html', status=404)
+
+def clear_cache(request):
+    cache.clear()
+    return HttpResponse("Cache cleared successfully.")

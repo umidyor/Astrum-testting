@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/signuplogin.css' %}">
 </head>
 <body>
+
     <div class="container">
         <div class="form-container">
             <div class="form">
@@ -31,6 +32,7 @@
                             <p>Don't have an account? <a href="{% url 'signup' %}" style="color: blue;">Sign Up</a></p>
                             <p>You are forgotten password? <a href="{%url 'password_reset'%}" style="color: blue;">ForgotPassword</a></p>
                             <button type="submit">Login</button>
+
                         </form>
                         <!-- Django Help Tags -->
                         {% if form.username.errors %}
@@ -44,7 +46,6 @@
             </div>
         </div>
     </div>
-
     <script>
         // Toggle password visibility
         function togglePasswordVisibility() {
