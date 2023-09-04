@@ -31,16 +31,21 @@ def user_profile(request):
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
+        unique_slug = str(uuid.uuid4())[:20]  # Generate a UUID and truncate it to 20 characters
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.slug = request.POST['title'].replace(" ","-").replace(",","").replace("'","").replace(".","")  # Access the title value using request.POST
+            # Generate a unique slug for the post based on the title
+            post_slug = request.POST['title'].replace(" ","-").replace(",","").replace("'","").replace(".","").replace('[',"").replace("]","").replace(":","").replace(";","")
+            shared_slug = slugify(post.title + '-' + unique_slug)
+            post.slug = f'{post_slug}-{shared_slug}'  # Combine the post slug and shared slug
             post.save()
             return redirect('profile')
     else:
         form = PostForm()
     context = {'form': form}
     return render(request, 'blog.html', context)
+
 
 
 
@@ -135,7 +140,8 @@ def serve_media(request, file_path):
         # Handle file not found gracefully
         print("asdasdasdas")
 
-
+import uuid
+from django.utils.text import slugify
 def share_post(request, post_id,post_slug):
     post_url = get_object_or_404(Post, id=post_id,slug=post_slug)
     return render(request, 'share_post.html', {'post_url': post_url})

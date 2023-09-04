@@ -1,12 +1,5 @@
-Add your styles for the user profile here
 
-.post-image {
-    max-width: 30%;
-   margin-left: 35%;
-    display: block;
-    margin-top: 10px;
-    
-}
+
 ul {
     list-style: none;
     padding: 0;
@@ -90,4 +83,33 @@ p {
 
 #input1{
     text-align:center;
+}
+
+
+
+.iconhome{
+    width:50px;
+    height:50px;
+    position: fixed; /* Fixed position */
+    top: 0; /* Place at the top */
+    right: 0; /* Place at the right */
+    padding: 10px; /* Add some padding to the container for spacing */
+
+}
+
+#blogButton{
+    position:fixed;
+    top:0;
+    right:0;
+    right:80px;
+    margin-top:22px;
+    padding:3px;
+    height:35px;
+    border-radius:10px;
+    background-color:blue;
+}
+
+#blogButton:hover{
+    cursor: pointer;
+    background-color: red;
 }
