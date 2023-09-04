@@ -45,7 +45,7 @@ def create_post(request):
 
 
 # @login_required_decorator
-def view_post(request, post_id,post_slug):
+def view_post(request, post_id, post_slug):
     post = get_object_or_404(Post, id=post_id,slug=post_slug)
     exist=Post.objects.filter(id=post_id,author=request.user).exists()
     if exist:

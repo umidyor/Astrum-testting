@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
     <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
 </head>
+
 <body style="background-image: url('{% static 'css/register.jpg' %}'); background-size: cover;">
 
-    <header>
-        <h2>Welcome to Your Profile, {{ request.user.username }}!</h2>
+    <header style="background-color: indigo; padding: 20px; margin-top: -19px;
+    padding-left: 20px; border-radius: 10px;
+    ">
+        <h2 style="color:#ffff ;">Welcome to Your Profile, {{ request.user.username }}!</h2>
 
         <!-- Search Form -->
-        <form method="GET" class="input1" >
-            {{ form.as_p }}
-            <button type="submit">Searching</button>
+        <form method="GET" id="input1">
+            {{form.query}}
+            <button class="btncolor" type="submit" style="padding: 5px; border-radius:8px ">Searching</button>
         </form>
     </header>
 
@@ -23,17 +27,20 @@
         {% if user_posts %}
         <ul class="post-list">
             {% for post in user_posts %}
-                <li class="post-item">
-                    <h4><a href="{% url 'edds' post.slug %}">{{ post.title }}</a></h4>
-                    <div class="post-description">{{ post.description|slice:":20" }}...</div>
-                    <img src="{{ post.picture.url }}" alt="Post Image" class="post-image">
-                    <div class="post-details">
-                        <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a></p>
-                        <button type="button" class="deletebtn"><a href="{% url 'delete_post' post.id post.slug %}" >Delete</a></button>
-                        <button type="button" class="editpost"><a href="{% url 'edit_post' post.id post.slug %}">Edit Post</a></button>
-                        <button type="button" class="sharepost"><a href="{% url 'share_post' post.id post.slug %}"><strong>Share Post</strong></a></button>
-                    </div>
-                </li>
+            <li class="post-item">
+                <h4><a href="{% url 'edds' post.slug %}">{{ post.title }}</a></h4>
+                <div class="post-description">{{ post.description|slice:":20" }}...</div>
+                <img src="{{ post.picture.url }}" alt="Post Image" class="post-image">
+                <div class="post-details">
+                    <p><a href="{% url 'posts' post.id post.slug %}">Published: {{ post.publish }}</a></p>
+                    <button id="btn1" type="button" class="deletebtn"><a id="color1"
+                            href="{% url 'delete_post' post.id post.slug %}">Delete</a></button>
+                    <button id="btn1" type="button" class="editpost"><a id="color1" href="{% url 'edit_post' post.id post.slug %}">Edit
+                            Post</a></button>
+                    <button id="btn1" type="button" class="sharepost"><a id="color1"
+                            href="{% url 'share_post' post.id post.slug %}"><strong>Share Post</strong></a></button>
+                </div>
+            </li>
             {% endfor %}
         </ul>
         {% else %}
@@ -41,7 +48,5 @@
         {% endif %}
     </main>
 </body>
+
 </html>
-
-
-

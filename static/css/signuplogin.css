@@ -35,7 +35,7 @@ a {
 }
 
 .form-container {
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQofwFcJv0Pjtw61lrWcn41DmDjC2UgNM-cdQ&usqp=CAU'); /* Replace with your image URL */
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQofwFcJv0Pjtw61lrWcn41DmDjC2UgNM-cdQ&usqp=CAU');
     background-size: cover;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);

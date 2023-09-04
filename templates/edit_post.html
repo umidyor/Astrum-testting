@@ -1,16 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+     <link rel="stylesheet" href="{% static 'css/editPost.css' %}">
     <title>EditPost</title>
 </head>
 <body>
-     <h1>Edit post:</h1>
+     <h1 id="navbarEdit" style="text-align: center; ">Edit post:</h1>
 
-  <form action="{% url 'edit_post' post.id post.slug %}" method='post'>
+  <form id="bttn" action="{% url 'edit_post' post.id post.slug %}" method='post' style="text-align: center; ">
       {% csrf_token %}
       {{ form.as_p }}
-      <button name="submit">Save changes</button>
+      <button  id="btnn"  name="submit">Save changes</button>
   </form>
 
 </body>

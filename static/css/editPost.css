@@ -1,0 +1,41 @@
+#btnn{
+    background-color: rgb(0, 0, 0);
+    padding: 10px; border-radius: 7px;background-color: rgb(0, 98, 255); color: aliceblue; 
+}
+#btnn:hover{
+    background-color: indigo;
+    cursor: pointer;
+}
+#bttn{
+    color: rgb(0, 0, 0);
+    
+}
+#navbarEdit{
+    margin-top: -25px;
+    background-color: indigo;
+    padding: 30px;
+    color: aliceblue;
+    border-radius: 10px;
+
+}
+
+
+.title-name{
+    width:11%;
+   height: 15px;
+    padding: 7px;
+    border-radius: 7px;
+}
+.picture{
+    color: aliceblue;
+    background-color: rgb(0, 98, 255);
+    cursor: pointer;
+    border-radius: 5px;
+}
+.description{
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 98, 255);
+}
+.picture:hover{
+  background-color: indigo;
+}

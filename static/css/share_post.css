@@ -20,17 +20,17 @@
         margin-bottom: 20px; /* Add some space below the input field */
     }
 
-    button {
+    .btn3 {
         width: 150px; /* Adjust the width as needed */
         height: 40px; /* Adjust the height as needed */
         font-size: 16px; /* Font size for the button */
-        background-color: #3498db; /* Default button background color */
+        background-color: #002fff; /* Default button background color */
         color: #fff; /* Button text color */
         cursor: pointer;
         transition: background-color 0.3s; /* Smooth transition for color change */
     }
 
-    button:hover {
-        background-color: #27ae60; /* Change button color to green on hover */
+    .btn3:hover {
+        background-color: #100f72; /* Change button color to green on hover */
     }
 

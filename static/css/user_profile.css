@@ -1,10 +1,11 @@
-/* Add your styles for the user profile here */
+Add your styles for the user profile here
 
 .post-image {
-    max-width: 40%;
-    height: auto;
+    max-width: 30%;
+   margin-left: 35%;
     display: block;
     margin-top: 10px;
+    
 }
 ul {
     list-style: none;
@@ -13,11 +14,16 @@ ul {
 
 
 li {
+    position: relative;
+    
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 40px;
     margin-bottom: 20px;
     border-radius: 5px;
-    background-color: #f7f7f7;
+    background-color: #ffffff;
+
+    
+    
 }
 
 h4 {
@@ -51,10 +57,37 @@ p {
 
 .search-container button {
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #007bff91;
     color: white;
     border: none;
 }
-.input1{
+.btncolor:hover{
+    cursor: pointer;
+    background-color: #ffffff;
+    background-color: #7e00fc;
+}
+#btn1:hover{
+    cursor: pointer;
+    background-color: #7e00fc;
+}
 
+#btn1{
+    
+    border-radius: 7px;
+    background-color: #2900f5;
+}
+#color1{
+    color: aliceblue;
+
+}
+.post-list{
+
+
+}
+.btn1{
+    left: 10%;
+}
+
+#input1{
+    text-align:center;
 }

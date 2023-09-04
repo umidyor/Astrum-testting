@@ -1,14 +1,15 @@
-<!DOCTYPE html>
 {%load static%}
+
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{%static 'css/share_post.css'%}">
+    <link rel="stylesheet" href="{% static 'css/share_post.css' %}">
     <title>Copy Link</title>
 </head>
 <body>
     <div class="centered-container">
         <input type="text" id="postLink" value="{{ post_url.get_absolute_url }}">
-        <button id="copyLinkButton">Copy Link</button>
+        <button class="btn3" id="copyLinkButton">Copy Link</button>
     </div>
 
     <script>
