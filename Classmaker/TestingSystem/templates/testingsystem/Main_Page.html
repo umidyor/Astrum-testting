@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'testingsystem/css/Main_Page.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-header">
+            <div>
+                <input type="checkbox" id="toggleActive" name="menu" />
+                <div class="navigation">
+                    <div class="userBox">
+                        <div class="imgBox">
+                            <img width="24" height="24" src="https://img.icons8.com/external-creatype-outline-colourcreatype/64/000000/external-account-essential-ui-v4-creatype-outline-colourcreatype.png" alt="external-account-essential-ui-v4-creatype-outline-colourcreatype"/>
+                        </div>
+                        <p class="username">User</p>
+                    </div>
+                    <label class="menuToggle" for="toggleActive"></label>
+                    <ul class="menu">
+                        <li>
+                            <a href="#">
+                                <ion-icon name="person-outline"></ion-icon> My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="chatbubble-outline"></ion-icon> Messages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="notifications-outline"></ion-icon> Notification
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="settings-outline"></ion-icon> Settings
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="help-outline"></ion-icon> Help & Support
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <ion-icon name="log-out-outline"></ion-icon> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <img
+                    src=""
+                    alt=""
+                    height="4px"
+                    class="logo"
+                />
+            </div>
+
+            <div class="nav-list">
+                <li>
+                    <a href="{% url 'TestingSystem:main-page' %}">Home</a>
+                </li>
+                <li>
+                    <a href="{% url 'TestingSystem:tests' %}">Test</a>
+                </li>
+                <li>
+                    <a href="">Links</a>
+                </li>
+                <li>
+                    <a href="">News</a>
+                </li>
+
+                <span class="more-icon">
+                    <img
+                        src=""
+                        alt=""/>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="test-extends">
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const toggleActive = document.getElementById("toggleActive");
+        const navigation = document.querySelector(".navigation");
+        const menuToggle = document.querySelector(".menuToggle");
+
+        toggleActive.addEventListener("change", function () {
+            if (this.checked) {
+                navigation.classList.add("active");
+            } else {
+                navigation.classList.remove("active");
+            }
+        });
+
+    </script>
+
+</body>
+</html>

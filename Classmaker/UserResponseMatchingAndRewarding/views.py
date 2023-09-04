@@ -6,8 +6,8 @@ from UserResponse.models import UserResponseModelMultiOption, UserResponseModelT
     UserResponseModelMultiOption, UserINFO
 
 
-def score(request, user_id, user_name):
-    user = UserINFO.objects.get(pk=user_id, surname=user_name)
+def score(request, user_id, user_hashname):
+    user = UserINFO.objects.get(pk=user_id, slug=user_hashname)
     score = 0
     mo_questions = user.user_multiple.all()
     tf_questions = user.user_truefalse.all()

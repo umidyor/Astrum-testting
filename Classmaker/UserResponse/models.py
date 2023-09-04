@@ -17,15 +17,9 @@ class UserINFO(models.Model):
         ("M9", "Main-Season-9"),
     ]
     ms_name = models.CharField(max_length=2, choices=MS)
-    slug = models.SlugField(unique=False, max_length=100)
 
     def __str__(self):
         return f'{self.name} {self.surname} - {self.ms_name}'
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = self.surname
-        super().save(*args, **kwargs)
 
 
 class UserResponseModelMultiOption(models.Model):
@@ -49,5 +43,6 @@ class UserResponseModelFreeTextOption(models.Model):
 class UserTimePassed(models.Model):
     started_time = models.DateTimeField(auto_now_add=True)
     ended_time = models.DateTimeField()
+
 
 

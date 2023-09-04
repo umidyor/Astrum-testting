@@ -1,0 +1,222 @@
+{% extends "testingsystem/Main_Page.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'testingsystem/css/main.css' %}">
+
+    <div>
+        <div>
+            <div class="innerWrapper">
+                <div class="col-span-10"></div>
+                <div class="clearheight20"></div>
+                <div class="clearheight20"></div>
+                <ul class="cmtableTabs">
+                    <li class="tabon">
+                        <a href="#">Tests</a>
+                    </li>
+                    <li class="taboff">
+                        <a href="#">Question Bank</a>
+                    </li>
+                </ul>
+                <form method="POST">
+                    {% csrf_token %}
+
+                <div class="table">
+                    <div class="table-utility row ">
+                        <div class="col-span-1">
+                            <div class="dropdown dropdown-x hide_if_no_data">
+                                <i class=""></i>
+                                <a class="dropdown-toggle no_anchor" href="#">
+                                    Options
+                                </a>
+                                <ul class="dropdown-menu expands">
+                                    <li>
+                                        <a href="#" class="expandAll">
+                                            Expand All
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="collapseAll">
+                                            Collapse All
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-span-7">
+                            <span class="hide_if_no_data not-ie67">
+                                <span class="hide_if_no_data search_filter">
+                                </span>
+                            </span>
+                            <span id="cat_filter" class="hide_if_no_data"></span>
+                            <span class="hide_if_no_data not-ie67 dropdown search_filter">
+                                <a href="#" class="littledark" data-sort="SortAlpha">
+                                    <i class="fa fa-solid fa-filter fa-bounce" aria-hidden="true"></i> Sort
+                                </a>
+                                <ul class="dropdown-menu filter">
+                                    <li>
+                                        <a class="sortAlphabetical" href="#" data-sort="SortAlpha">
+                                            Alphabetical
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="sortDateAdded" href="#" data-sort="SortRecent">
+                                            Recently Added
+                                        </a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div>
+                        <div class="col-span-2 col-btns">
+                            <a class="btn btn-create" href="{% url 'TestingSystem:home' %}">
+                                New Test <span class="caret">&nbsp;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <ul class="table-body">
+                        <li>
+                            {% for object in objects %}
+                                <div class="row accordion-toggle scrollTop test_container remove_caret closed" >
+                                    <div class="col-span-6" >
+                                        <h4 id="toggleButton" class="test-name name">{{ object.title }}</h4>
+                                        <ul id="hiddenList" style="display: none;">
+                                                <li id="nonem">
+                                                    <div class="edit-button">
+                                                        <a href="{% url 'TestingSystem:questions' test_id=object.id test_description=object.slug %}">Edit </a>
+                                                    </div>
+                                                </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-span-4 col-btns">
+                                        <a href="/a/assign/groups/?test_id=2117377&amp;trk=assign_toprow_tests"
+                                            class="assign-test">
+                                            Assign
+                                        </a>
+                                        <div class="dropdown">
+                                            <a class="view-analytics no_anchor" href="#">
+                                                Statistics <span class="caret">&nbsp;</span>
+                                            </a>
+                                            <ul class="dropdown-menu statistics">
+                                                <li>
+                                                    <a class=""
+                                                        href="/a/results/tests/test/?test_id=2117377">
+                                                        By Group
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class=""
+                                                        href="/a/results/questions/?test_id=2117377">
+                                                        By Question
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <a href="/a/tests/test/?test_id=2117377&amp;trk=edittest_inrow_edit"
+                                            class="btn btn-analytics " >
+                                            Edit Test
+                                        </a>
+                                    </div>
+                                    <span class="caret">&nbsp;</span>
+                                </div>
+                            {% endfor %}
+                            <div
+                                class="accordion-fold subrow-container test_groups hide"
+                                style="display: none;">
+                                <div class="row hint">Assigned 1 time:</div>
+                                <ul class="groups_links_list hover-row"></ul>
+                                <div class="row assign">
+                                    <a href="/a/assign/groups/?test_id=2117377&amp;trk=assign_bottomrow_tests"
+                                        class="btn btn-assign-test">
+                                        Assign
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div
+                        class="row col_center hide"
+                        id="load_more_row"
+                        style="display: none;">
+                        <a href="#" class="loadMore btn ">
+                            Load More Tests
+                        </a>
+                    </div>
+                    <input
+                        type="hidden"
+                        class="loadMoreOnScroll"
+                        value=""/>
+
+                    <div class="table-utility row row-no-border-bottom bellow">
+                        <div class="col-span-8">
+                            <div class="dropdown dropdown-x hide_if_no_data_bottom">&nbsp;</div>
+                        </div>
+                        <div class="col-span-2 col-btns hide_if_no_data_bottom">&nbsp;</div>
+                    </div>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script>
+    const toggleList = (event) => {
+    const hiddenList = event.target.nextElementSibling;
+    if (hiddenList.style.display === 'none') {
+        hiddenList.style.display = 'block';
+    } else {
+        hiddenList.style.display = 'none';
+    }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButtons = document.querySelectorAll('.test-name.name');
+
+        toggleButtons.forEach((button) => {
+            button.addEventListener('click', toggleList);
+        });
+    });
+    $(document).ready(function() {
+        $('.cmtableTabs li').click(function() {
+            // Remove 'selected' class from all tabs
+            $('.cmtableTabs li').removeClass('selected');
+            
+            // Add 'selected' class to the clicked tab
+            $(this).addClass('selected');
+        });
+    });
+
+
+    </script>
+<script>
+    // Get the link elements by their IDs
+    const alphabeticalLink = document.getElementById("sortAlphabetical");
+    const recentLink = document.getElementById("sortDateAdded");
+
+    // Add click event listeners to the links
+    alphabeticalLink.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        // Add a value attribute to the link based on the data-sort attribute
+        alphabeticalLink.setAttribute("value", alphabeticalLink.getAttribute("data-sort"));
+        // Optionally, update the link text
+        alphabeticalLink.textContent = "Alphabetical (Sorted)";
+
+        // You can reset other links here if needed
+        recentLink.removeAttribute("value");
+        recentLink.textContent = "Recent Time Added";
+    });
+
+    recentLink.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        // Add a value attribute to the link based on the data-sort attribute
+        recentLink.setAttribute("value", recentLink.getAttribute("data-sort"));
+        // Optionally, update the link text
+        recentLink.textContent = "Recent Time Added (Sorted)";
+
+        // You can reset other links here if needed
+        alphabeticalLink.removeAttribute("value");
+        alphabeticalLink.textContent = "Alphabetical";
+    });
+</script>
+{% endblock %}

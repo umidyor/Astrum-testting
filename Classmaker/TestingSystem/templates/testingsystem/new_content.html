@@ -1,0 +1,19 @@
+<h1>New Content</h1>
+<p>This is the new content.</p>
+<button id="restoreButton">Restore Initial Content</button>
+
+<script>
+    $(document).ready(function() {
+        $("#restoreButton").click(function() {
+            // Fetch and restore the initial content using AJAX
+            $.ajax({
+                url: "/initial-content/", // Update with your URL
+                success: function(data) {
+                    $("#content").html(data);
+                    // Modify browser history
+                    history.pushState(null, "", "/initial-url/"); // Update URL
+                }
+            });
+        });
+    });
+</script>

@@ -1,261 +1,262 @@
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Dynamic Form Example</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Form Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-            #dynamic-form {
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+        #dynamic-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-            .question {
-                margin-bottom: 20px;
-                padding: 10px;
-                background-color: #f9f9f9;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-            .question p {
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
+        .question p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
 
-            label {
-                display: block;
-                margin-bottom: 10px;
-            }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
 
-            input[type="radio"],
-            input[type="text"] {
-                margin-right: 5px;
-            }
+        input[type="radio"],
+        input[type="text"] {
+            margin-right: 5px;
+        }
 
-            button {
-                padding: 10px 20px;
-                font-size: 16px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-            button:hover {
-                background-color: #0056b3;
-            }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-            #submit-button {
-                background-color: #28a745;
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <form id="dynamic-form" method="POST">
-            {% csrf_token %}
-            <div id="question-container">
-                <!-- Questions will be added here dynamically -->
-            </div>
-            <button type="button" id="prev-button">Previous</button>
-            <button type="button" id="next-button">Next</button>
-            <button type="submit" id="submit-button" style="display: none;">Submit</button>
-        </form>
+        #submit-button {
+            background-color: #28a745;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="dynamic-form" method="POST">
+        {% csrf_token %}
+        <div id="question-container">
+            <!-- Questions will be added here dynamically -->
+        </div>
+        <button type="button" id="prev-button">Previous</button>
+        <button type="button" id="next-button">Next</button>
+        <button type="submit" id="submit-button" style="display: none;">Submit</button>
+    </form>
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                const form = $('#dynamic-form');
-                const questionContainer = $('#question-container');
-                const prevButton = $('#prev-button');
-                const nextButton = $('#next-button');
-                const submitButton = $('#submit-button');
-                const questionData = {{ question_data|safe }};
-                const userAnswers = {};
-                let currentQuestionIndex = 0;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        const form = $('#dynamic-form');
+        const questionContainer = $('#question-container');
+        const prevButton = $('#prev-button');
+        const nextButton = $('#next-button');
+        const questionData = {{ question_data|safe }};
+        const submitButton = $('#submit-button');
+        const userAnswers = {};
+        let currentQuestionIndex = 0;
 
-                // Function to display multiple-choice question
-                function showMultiQuestion(question) {
-                    const questionDiv = $('<div>', { class: 'question' });
+        // Function to display multiple-choice question
+        function showMultiQuestion(question) {
+            const questionDiv = $('<div>', { class: 'question' });
 
-                    const questionText = $('<p>').html(question.text);
-                    questionDiv.append(questionText);
+            const questionText = $('<p>').html(question.text);
+            questionDiv.append(questionText);
 
-                    const options = question.options;
-                    
-                    for (let i = 0; i < options.length; i++) {
-                        const option = options[i];
-                        const optionLabel = $('<label>');
-                        const optionInput = $('<input>', {
-                            type: 'radio',
-                            name: `question_${currentQuestionIndex}`,
-                            value: option.id,
-                            checked: userAnswers[`question_${currentQuestionIndex}`] === option.id,
-                        });
+            const options = question.options;
 
-                        optionInput.on('change', function () {
-                            userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
-                        });
-
-                        optionLabel.append(optionInput, option.text);
-                        questionDiv.append(optionLabel);
-                    }
-                    
-                    questionContainer.append(questionDiv);
-                }
-
-
-
-                // Function to display true/false question
-                function showTrueFalseQuestion(question) {
-                    const questionDiv = $('<div>', { class: 'question' });
-
-                    const questionText = $('<p>').html(question.text);
-                    questionDiv.append(questionText);
-
-                    const trueLabel = $('<label>');
-                    const trueInput = $('<input>', {
-                        type: 'radio',
-                        name: `question_${currentQuestionIndex}`,
-                        value: 'true',
-                        checked: userAnswers[`question_${currentQuestionIndex}`] === 'true',
-                    });
-
-                    trueInput.on('change', function () {
-                        userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
-                    });
-
-                    trueLabel.append(trueInput, 'True');
-
-                    const falseLabel = $('<label>');
-                    const falseInput = $('<input>', {
-                        type: 'radio',
-                        name: `question_${currentQuestionIndex}`,
-                        value: 'false',
-                        checked: userAnswers[`question_${currentQuestionIndex}`] === 'false',
-                    });
-
-                    falseInput.on('change', function () {
-                        userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
-                    });
-
-                    falseLabel.append(falseInput, 'False');
-
-                    questionDiv.append(trueLabel, falseLabel);
-                    questionContainer.append(questionDiv);
-                }
-
-                // Function to display free text question
-                function showFreetextQuestion(question) {
-                    const questionDiv = $('<div>', { class: 'question' });
-
-                    const questionText = $('<p>').html(question.text);
-                    questionDiv.append(questionText);
-
-                    const textInput = $('<input>', {
-                        type: 'text',
-                        name: `question_${currentQuestionIndex}`,
-                        value: userAnswers[`question_${currentQuestionIndex}`] || '',
-                    });
-
-                    textInput.on('input', function () {
-                        userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
-                    });
-
-                    questionDiv.append(textInput);
-                    questionContainer.append(questionDiv);
-                }
-
-                // Function to show the current question
-                function showQuestion(index) {
-                    questionContainer.empty();
-
-                    const question = questionData[index];
-                    const questionType = question.question_type;
-
-                    if (questionType === 'multi') {
-                        showMultiQuestion(question);
-                    } else if (questionType === 'truefalse') {
-                        showTrueFalseQuestion(question);
-                    } else if (questionType === 'freetext') {
-                        showFreetextQuestion(question);
-                    }
-
-                    // Update button visibility based on question index
-                    if (currentQuestionIndex === 0) {
-                        prevButton.hide();
-                    } else {
-                        prevButton.show();
-                    }
-                    if (currentQuestionIndex === questionData.length - 1) {
-                        nextButton.hide();
-                        submitButton.show();
-                    } else {
-                        nextButton.show();
-                        submitButton.hide();
-                    }
-                }
-
-                // Handle "Next" button click
-                nextButton.click(function () {
-                    saveUserAnswer();  // Save the user's answer before moving to the next question
-                    currentQuestionIndex++;
-                    showQuestion(currentQuestionIndex);
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                const optionLabel = $('<label>');
+                const optionInput = $('<input>', {
+                    type: 'radio',
+                    name: `question_${currentQuestionIndex}`,
+                    value: option.id,
+                    checked: userAnswers[`question_${currentQuestionIndex}`] === option.id,
                 });
 
-                // Handle "Previous" button click
-                prevButton.click(function () {
-                    saveUserAnswer();  // Save the user's answer before moving to the previous question
-                    currentQuestionIndex--;
-                    showQuestion(currentQuestionIndex);
+                optionInput.on('change', function () {
+                    userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
                 });
 
-                // Handle form submission
-                form.submit(function (event) {
-                    saveUserAnswer();  // Save the user's answer before submitting the form
+                optionLabel.append(optionInput, option.text);
+                questionDiv.append(optionLabel);
+            }
 
-                    // Populate hidden inputs with user answers
-                    questionData.forEach((question, index) => {
-                        const questionKey = `question_${index}_${question.question_type}`; // Modified key format
-                        const inputValue = userAnswers[questionKey];
-                        form.append($('<input>', {
-                            type: 'hidden',
-                            name: questionKey,
-                            value: inputValue !== undefined ? inputValue : null,
-                        }));
-                    });
+            questionContainer.append(questionDiv);
+        }
 
-                    // Continue with form submission
-                    return true;
-                });
 
-                // Function to save the user's answer for the current question
-                function saveUserAnswer() {
-                    const selectedOption = $(`input[name="question_${currentQuestionIndex}"]:checked`).val();
-                    if (selectedOption !== undefined) {
-                        const questionType = questionData[currentQuestionIndex].question_type;
-                        const questionKey = `question_${currentQuestionIndex}_${questionType}`; // Modified key format
-                        userAnswers[questionKey] = selectedOption;
-                    }else if (questionData[currentQuestionIndex].question_type === 'freetext') {
-                        const questionType = questionData[currentQuestionIndex].question_type;
-                        const questionKey = `question_${currentQuestionIndex}_${questionType}`; // Modified key format
-                        userAnswers[questionKey] = $(`input[name="question_${currentQuestionIndex}"]`).val();
-                    }
-                }
 
-                // Show the initial question
-                showQuestion(currentQuestionIndex);
+        // Function to display true/false question
+        function showTrueFalseQuestion(question) {
+            const questionDiv = $('<div>', { class: 'question' });
+
+            const questionText = $('<p>').html(question.text);
+            questionDiv.append(questionText);
+
+            const trueLabel = $('<label>');
+            const trueInput = $('<input>', {
+                type: 'radio',
+                name: `question_${currentQuestionIndex}`,
+                value: 'true',
+                checked: userAnswers[`question_${currentQuestionIndex}`] === 'true',
             });
-        </script>
-    </body>
-    </html>
+
+            trueInput.on('change', function () {
+                userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
+            });
+
+            trueLabel.append(trueInput, 'True');
+
+            const falseLabel = $('<label>');
+            const falseInput = $('<input>', {
+                type: 'radio',
+                name: `question_${currentQuestionIndex}`,
+                value: 'false',
+                checked: userAnswers[`question_${currentQuestionIndex}`] === 'false',
+            });
+
+            falseInput.on('change', function () {
+                userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
+            });
+
+            falseLabel.append(falseInput, 'False');
+
+            questionDiv.append(trueLabel, falseLabel);
+            questionContainer.append(questionDiv);
+        }
+
+        // Function to display free text question
+        function showFreetextQuestion(question) {
+            const questionDiv = $('<div>', { class: 'question' });
+
+            const questionText = $('<p>').html(question.text);
+            questionDiv.append(questionText);
+
+            const textInput = $('<input>', {
+                type: 'text',
+                name: `question_${currentQuestionIndex}`,
+                value: userAnswers[`question_${currentQuestionIndex}`] || '',
+            });
+
+            textInput.on('input', function () {
+                userAnswers[`question_${currentQuestionIndex}`] = $(this).val();
+            });
+
+            questionDiv.append(textInput);
+            questionContainer.append(questionDiv);
+        }
+
+        // Function to show the current question
+        function showQuestion(index) {
+            questionContainer.empty();
+
+            const question = questionData[index];
+            const questionType = question.question_type;
+
+            if (questionType === 'multi') {
+                showMultiQuestion(question);
+            } else if (questionType === 'truefalse') {
+                showTrueFalseQuestion(question);
+            } else if (questionType === 'freetext') {
+                showFreetextQuestion(question);
+            }
+
+            // Update button visibility based on question index
+            if (currentQuestionIndex === 0) {
+                prevButton.hide();
+            } else {
+                prevButton.show();
+            }
+            if (currentQuestionIndex === questionData.length - 1) {
+                nextButton.hide();
+                submitButton.show();
+            } else {
+                nextButton.show();
+                submitButton.hide();
+            }
+        }
+
+        // Handle "Next" button click
+        nextButton.click(function () {
+            saveUserAnswer();  // Save the user's answer before moving to the next question
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        });
+
+        // Handle "Previous" button click
+        prevButton.click(function () {
+            saveUserAnswer();  // Save the user's answer before moving to the previous question
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        });
+
+        // Handle form submission
+        form.submit(function (event) {
+            saveUserAnswer();  // Save the user's answer before submitting the form
+
+            // Populate hidden inputs with user answers
+            questionData.forEach((question, index) => {
+                const questionKey = `question_${index}_${question.question_type}`; // Modified key format
+                const inputValue = userAnswers[questionKey];
+                form.append($('<input>', {
+                    type: 'hidden',
+                    name: questionKey,
+                    value: inputValue !== undefined ? inputValue : null,
+                }));
+            });
+
+            // Continue with form submission
+            return true;
+        });
+
+        // Function to save the user's answer for the current question
+        function saveUserAnswer() {
+            const selectedOption = $(`input[name="question_${currentQuestionIndex}"]:checked`).val();
+            if (selectedOption !== undefined) {
+                const questionType = questionData[currentQuestionIndex].question_type;
+                const questionKey = `question_${currentQuestionIndex}_${questionType}`; // Modified key format
+                userAnswers[questionKey] = selectedOption;
+            }else if (questionData[currentQuestionIndex].question_type === 'freetext') {
+                const questionType = questionData[currentQuestionIndex].question_type;
+                const questionKey = `question_${currentQuestionIndex}_${questionType}`; // Modified key format
+                userAnswers[questionKey] = $(`input[name="question_${currentQuestionIndex}"]`).val();
+            }
+        }
+
+        // Show the initial question
+        showQuestion(currentQuestionIndex);
+    });
+    </script>
+</body>
+</html>

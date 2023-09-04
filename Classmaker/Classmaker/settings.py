@@ -41,60 +41,48 @@ INSTALLED_APPS = [
     'TestingSystem',
     'UserResponse',
     'UserResponseMatchingAndRewarding',
+    'AssignLinks',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
 ]
+
+
+
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
+        'allowedContent':True,
+        'autoParagraph':False,
         'height': 150,
         'width': 1000,
-        'skin': 'moono',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            # {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
-            # {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            # {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-            # {'name': 'forms',
-             # 'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
-             #           'HiddenField']},
             '/',
             {'name': 'basicstyles',
-             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-']},
             {'name': 'paragraph',
-             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-',
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
-                       'Language']},
-            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+                       ]},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
-            {'name': 'about', 'items': ['About']},
-            '/',  # put this to force next toolbar on new line
             {'name': 'yourcustomtools', 'items': [
-                # put the name of your editor.ui.addButton here
                 'Preview',
-                'Maximize',
 
             ]},
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-        # 'height': 291,
-        # 'width': '100%',
-        # 'filebrowserWindowHeight': 725,
-        # 'filebrowserWindowWidth': 940,
-        # 'toolbarCanCollapse': True,
-        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
             'uploadimage', # the upload image feature
-            # your extra plugins here
             'div',
             'autolink',
             'autoembed',
@@ -103,7 +91,6 @@ CKEDITOR_CONFIGS = {
             'widget',
             'lineutils',
             'clipboard',
-            # 'dialog',
             'dialogui',
             'elementspath'
         ]),
@@ -193,3 +180,60 @@ MEDIA_ROOT = 'media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+BOOTSTRAP_DATEPICKER_PLUS = {
+    # Options for all input widgets
+    # More options: https://getdatepicker.com/4/Options/
+    "options": {
+        "showClose": True,
+        "showClear": True,
+        "showTodayButton": True,
+        "allowInputToggle": True,
+    },
+    # You can set date and event hook options using JavaScript, usage in README.
+    # You can also set options for specific variant widgets only which overrides above options.
+    "variant_options": {
+        "date": {
+            "format": "MM/DD/YYYY",
+        },
+        "datetime": {
+            "format": "MM/DD/YYYY HH:mm",
+        },
+        "month": {
+            "format": "MMMM, YYYY",
+        },
+    },
+    #
+    # HTML attributes for widget <input> element
+    # "attrs": {
+    #     "class": "input",
+    # },
+    #
+    # Override input addon icon classes
+    "addon_icon_classes": {
+        "month": "bi-calendar-month",
+    },
+    #
+    # HTML template to render the html input
+    # example: https://github.com/monim67/django-bootstrap-datepicker-plus/blob/5.0.0/dev/myapp/templates/myapp/custom-input.html
+    #
+    # "template_name": "your-app/custom-input.html",
+    #
+    # Advanced: Choose where from static JS/CSS files are served.
+    # defaults: https://github.com/monim67/django-bootstrap-datepicker-plus/blob/5.0.0/src/bootstrap_datepicker_plus/settings.py#L16
+    # To serve from any other preferred CDN, just update the options below.
+    # You can also set them to None if you already have the following resources
+    # included into your template.
+    #
+    # "datetimepicker_js_url": "https://..",
+    # "datetimepicker_css_url": "https://..",
+    # "momentjs_url": None,  # If you already have momentjs added into your template
+    # "bootstrap_icon_css_url": None,  # If you don't need bootstrap icons
+    #
+    # If you want to serve static files yourself without CDN (from staticfiles) and
+    # you know how to serve django static files on production server (DEBUG=False)
+    # Then download the js/css files to any of your static directory, update the js/css
+    # urls above and set the following option
+    #
+    # "app_static_url": "bootstrap_datepicker_plus/",
+}

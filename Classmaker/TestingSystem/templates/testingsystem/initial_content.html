@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initial Content</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="content">
+        <h1>Initial Content</h1>
+        <button id="replaceButton">Replace Content</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#replaceButton").click(function() {
+                // Fetch new content using AJAX
+                $.ajax({
+                    url: "/new-content/", // Update with your URL
+                    success: function(data) {
+                        $("#content").html(data);
+                        // Modify browser history
+                        history.pushState(null, "", "/new-url/"); // Update URL
+                    }
+                });
+            });
+
+            // Listen for the "popstate" event (e.g., browser back button)
+            window.addEventListener("popstate", function(event) {
+                // Fetch and restore the previous content
+                $.ajax({
+                    url: "/initial-content/", // Update with your URL
+                    success: function(data) {
+                        $("#content").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
