@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from .models import UserResponseScore
 from UserResponse.models import UserResponseModelMultiOption, UserResponseModelTrueFalseOption, \
     UserResponseModelMultiOption, UserINFO
+from AssignLinks.models import AssignLinkModel
 
 
-def score(request, user_id, user_hashname):
-    user = UserINFO.objects.get(pk=user_id, slug=user_hashname)
+def score(request, user_id, assign_slug):
+    assign_model = get_object_or_404(AssignLinkModel, slug_field=assign_slug)
+    user = get_object_or_404(UserINFO, pk=user_id)
     score = 0
     mo_questions = user.user_multiple.all()
     tf_questions = user.user_truefalse.all()

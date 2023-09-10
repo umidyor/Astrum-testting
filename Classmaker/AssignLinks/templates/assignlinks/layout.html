@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load bootstrap4 %}
+{% load static %}
 
 <html lang="en" dir="ltr">
 
@@ -8,6 +9,7 @@
   <title>django-bootstrap-datepicker-plus with Bootstrap 4 - {{ title_text }}</title>
   {% bootstrap_css %}
   {% block extra_css %}{% endblock %}
+  <link rel="stylesheet" href="{% static 'assignlinks/css/style.css' %}">
 </head>
 
 <body>

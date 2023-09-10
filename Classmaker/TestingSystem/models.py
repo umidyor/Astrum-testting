@@ -1,6 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-
+import random
 from GenerateSecureKeys.GenerateSlug import generate_slugs
 
 
@@ -32,6 +32,26 @@ class Question(models.Model):
         if not self.slug:
             self.slug = generate_slugs(*args)
         super().save(*args, **kwargs)
+
+class TestQuestionRandomize(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='test_random')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_random')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('test', 'question')
+
+    def __str__(self):
+        return self.question.text
+
+    @classmethod
+    def randomize_questions(cls, test_instance):
+        questions = list(test_instance.questions.all())
+        random.shuffle(questions)
+        for index, question in enumerate(questions):
+            test_question, created = cls.objects.get_or_create(test=test_instance, question=question)
+            test_question.order = index + 1
+            test_question.save()
 
 
 class Option(models.Model):

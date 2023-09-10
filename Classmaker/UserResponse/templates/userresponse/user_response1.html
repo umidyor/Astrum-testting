@@ -71,8 +71,42 @@
         <button type="button" id="prev-button">Previous</button>
         <button type="button" id="next-button">Next</button>
         <button type="submit" id="submit-button" style="display: none;">Submit</button>
-    </form>
+        <button id="hiddenButton" style="display: none;"></button>
 
+    </form>
+    <script type="text/javascript">
+        var currentDatetime = new Date();
+
+        var startDatetimeString = "{{ start_datetime }}";
+        var endDatetimeString = "{{ end_datetime }}";
+        var startDatetime = new Date(startDatetimeString);
+        var endDatetime = new Date(endDatetimeString);
+        function checkTestAvailability() {
+            if (currentDatetime < startDatetime) {
+            } else if (currentDatetime < endDatetime) {
+            } else {
+
+                setTimeout(function () {
+                    var hiddenButton = document.getElementById("hiddenButton");
+                    hiddenButton.value = 'Block';
+                    hiddenButton.name = "BlockMe"; // Set the name attribute
+                    hiddenButton.click(); 
+                }, 1000);
+            }
+        }
+
+        checkTestAvailability();
+    </script>
+    <script>
+        const CT = new Date();
+        const endTimestr = "{{ end_time }}" ; 
+        const ET = new Date(endTimestr);
+        if (CT < ET) {
+        }
+        else{
+            window.location.href = '/main';
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -258,5 +292,6 @@
         showQuestion(currentQuestionIndex);
     });
     </script>
+    
 </body>
 </html>

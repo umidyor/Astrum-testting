@@ -12,7 +12,5 @@ urlpatterns = [
     path('edit/true-false/<int:question_id>/<slug:question_description>/', views.EditQuestionAndTrueFalseOptions, name='question_edit_truefalse'),
     path('create-question/true-false/<int:test_id>/<slug:test_description>/', views.CreateQuestionAndTrueFalseOptions, name='create-true-false'),
     path('create-question/free-text/<int:test_id>/<slug:test_description>/', views.CreateQuestionAndFreeTextOptions, name='create-free-text'),
-    # path('initial-content/', views.initial_content_view, name='initial_content'),
-    # path('new-content/', views.new_content_view, name='new_content'),
 ]
 

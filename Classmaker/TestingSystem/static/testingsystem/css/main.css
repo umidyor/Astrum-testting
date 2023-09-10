@@ -170,7 +170,6 @@ video {
     vertical-align: baseline;
     list-style: none;
 }
-
 article,
 aside,
 details,
@@ -338,9 +337,11 @@ a {
 }
 .littledark{
     position: relative;
-    left: 500px;
+    left: 100px;
     bottom: 15px;
 }
+
+
 .dropdown:hover .filter{
     position: absolute;
     width: 30px;
@@ -565,7 +566,7 @@ a {
     font-size: 12px;
     font-weight: 400;
     height: 0;
-    padding: 9px 0 21px;
+    padding: 7px 0 21px 10px;
     text-shadow: 0 1px 0 #fff;
     text-indent: 6px;
 }
@@ -577,7 +578,7 @@ a {
 
 .table .row .btn-group .dropdown,
 .table .row .btn-group .btn {
-    display: i  nline;
+    display: inline;
 }
 
 .accordion-toggle,
@@ -763,12 +764,12 @@ ul.hoverrows li:hover {
     margin: 0;
 }
 #nonem{
-    padding: 30px;
+    padding: 0px;
     width: 100%;
 
 }
 #nonem .edit-button a {
-    position: absolute;
+    position: relative;
     left: 810px;
     bottom: 70px;
     background: none repeat scroll 0 0 blue;
@@ -778,3 +779,4 @@ ul.hoverrows li:hover {
     padding-right: 12px;
     border-radius: 4px;
 }
+

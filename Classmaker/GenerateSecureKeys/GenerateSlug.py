@@ -9,18 +9,11 @@ import string
 
 
 def generate_slugs(text):
-    # Convert the text to lowercase
     text = text.lower()
-
-    # Replace spaces and special characters with hyphens
     text = re.sub(r'[^\w\s-]', '', text)
     text = re.sub(r'[-\s]+', '-', text)
-
-    # Remove diacritics (accents and other marks)
     text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')
-
     hash_value = slugify(str(uuid.uuid4()).split('-')[-1])
-
     return f"{slugify(text)}-{hash_value}"
 
 

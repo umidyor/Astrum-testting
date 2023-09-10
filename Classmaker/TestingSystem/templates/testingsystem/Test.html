@@ -2,23 +2,94 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'testingsystem/css/main.css' %}">
+<style>
+    #nonem {
+        padding: 0px;
+        width: 100%;
 
+    }
+
+    #nonem .edit-button a {
+        position: relative;
+        left: 790px;
+        bottom: 10px;
+        background: none repeat scroll 0 0 blue;
+        color: white;
+        padding: 6px;
+        padding-left: 12px;
+        padding-right: 12px;
+        border-radius: 4px;
+    }
+
+    #nonem .assign-button a {
+        position: relative;
+        left: 700px;
+        bottom: 20px;
+    }
+
+    #nonem .assign-button a:hover {
+        text-decoration: underline;
+    }
+
+    .table .row.hint {
+        border-bottom: 1px solid #ddd;
+        color: #888;
+        font-size: 12px;
+        font-weight: 400;
+        height: 0;
+        padding: 7px 0 21px 0px;
+        text-shadow: 0 1px 0 #fff;
+        text-indent: 6px;
+    }
+    .linksinafold{
+        color: #444;
+        -webkit-font-smoothing: antialiased;
+        list-style: none outside none;
+        word-wrap: break-word;
+        border: 0;
+        font: inherit;
+        vertical-align: baseline;
+        margin: 5px 0 0 36px;
+        font-size: 13px;
+        padding: 0;
+        clear: both;
+        line-height: 1.5;
+        padding-top:30px;
+        display: block;
+    }
+    .littledark{
+        position: relative;
+        left: 500px;
+        bottom: 15px;
+    }
+    .cols-btns {
+        left: 560px;
+        width: 270px;
+    }
+    .table .row-links {
+        border-bottom: 1px solid #ddd;
+        padding: 20px 26px 10px;
+        position: relative;
+        clear: both;
+    }
+</style>
+
+<div>
     <div>
-        <div>
-            <div class="innerWrapper">
-                <div class="col-span-10"></div>
-                <div class="clearheight20"></div>
-                <div class="clearheight20"></div>
-                <ul class="cmtableTabs">
-                    <li class="tabon">
-                        <a href="#">Tests</a>
-                    </li>
-                    <li class="taboff">
-                        <a href="#">Question Bank</a>
-                    </li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
+        <div class="innerWrapper">
+            <div class="col-span-10"></div>
+            <div class="clearheight20"></div>
+            <div class="clearheight20"></div>
+            <ul class="cmtableTabs">
+                <li class="tabon">
+                    <a href="#">Tests</a>
+                </li>
+                <li class="taboff">
+                    <a href="#">Question Bank</a>
+                </li>
+            </ul>
+            <form>
+                {% csrf_token %}
 
                 <div class="table">
                     <div class="table-utility row ">
@@ -54,12 +125,12 @@
                                 </a>
                                 <ul class="dropdown-menu filter">
                                     <li>
-                                        <a class="sortAlphabetical" href="#" data-sort="SortAlpha">
+                                        <a class="sortAlphabetical" href="?alpabetical=True" data-sort="SortAlpha">
                                             Alphabetical
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="sortDateAdded" href="#" data-sort="SortRecent">
+                                        <a class="sortDateAdded" href="?resent=True" data-sort="SortRecent">
                                             Recently Added
                                         </a>
                                     </li>
@@ -76,75 +147,67 @@
                     <ul class="table-body">
                         <li>
                             {% for object in objects %}
-                                <div class="row accordion-toggle scrollTop test_container remove_caret closed" >
-                                    <div class="col-span-6" >
-                                        <h4 id="toggleButton" class="test-name name">{{ object.title }}</h4>
-                                        <ul id="hiddenList" style="display: none;">
-                                                <li id="nonem">
-                                                    <div class="edit-button">
-                                                        <a href="{% url 'TestingSystem:questions' test_id=object.id test_description=object.slug %}">Edit </a>
-                                                    </div>
-                                                </li>
+                            <div class="row accordion-toggle scrollTop test_container remove_caret closed">
+                                <div class="col-span-6">
+                                    <h4 id="toggleButton" class="test-name name">{{ object.title }}</h4>
+                                    <ul id="hiddenList" style="display: none;">
+                                        <li id="nonem">
+                                            <div class="edit-button">
+                                                <a
+                                                    href="{% url 'TestingSystem:questions' test_id=object.id test_description=object.slug %}">Edit
+                                                </a>
+                                            </div>
+                                            <div class="assign-button">
+                                                <a
+                                                    href="{% url 'Assign:assign' test_id=object.id test_description=object.slug %}">
+                                                    Assign
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <div class="row hint">Assigned {{ object.assign_link.all|length }} time:</div>
+                                        {% for assign_links in object.assign_link.all %}
+                                        <ul class="groups_links_list hover-row">
+                                            <li class="row-links">
+                                                <div class="col-span-6">
+                                                    <p class="link-name name"><a
+                                                            href="{% url 'Assign:edit-assign' assign_id=assign_links.id test_description=object.slug %}"
+                                                            class="graylink">aas</a></p>
+                                                </div>
+                                                <div class="cols-btns littledark">
+                                                    <a href="#" class="open_embed_links">Links</a> | <a class=""
+                                                        href="{% url 'Assign:edit-assign' assign_id=assign_links.id test_description=object.slug %}"
+                                                        class="settings_embed_links">Settings</a>
+                                                    | <a href="#" class="showTooltip">Preview</a>
+                                                    <a href="#" class="btn btn-results">Results</a>
+                                                </div>
+                                                <div class="linksinafold show-direct-links editor clear" style="display: none;">
+                                                    <p><strong>Options for giving access to this Test:</strong></p>
+                                                    <p>Test link
+                                                        <br><input class="textinput" type="text" size="60"
+                                                            value="https://www.classmarker.com/online-test/start/?quiz=9hd64f42c7e455f6"
+                                                            onclick="javascript:this.focus();this.select();"
+                                                            readonly="readonly">
+                                                    </p>
+                                                </div>
+                                            </li>
                                         </ul>
-                                    </div>
-                                    <div class="col-span-4 col-btns">
-                                        <a href="/a/assign/groups/?test_id=2117377&amp;trk=assign_toprow_tests"
-                                            class="assign-test">
-                                            Assign
-                                        </a>
-                                        <div class="dropdown">
-                                            <a class="view-analytics no_anchor" href="#">
-                                                Statistics <span class="caret">&nbsp;</span>
-                                            </a>
-                                            <ul class="dropdown-menu statistics">
-                                                <li>
-                                                    <a class=""
-                                                        href="/a/results/tests/test/?test_id=2117377">
-                                                        By Group
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class=""
-                                                        href="/a/results/questions/?test_id=2117377">
-                                                        By Question
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <a href="/a/tests/test/?test_id=2117377&amp;trk=edittest_inrow_edit"
-                                            class="btn btn-analytics " >
-                                            Edit Test
-                                        </a>
-                                    </div>
-                                    <span class="caret">&nbsp;</span>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
-                            {% endfor %}
-                            <div
-                                class="accordion-fold subrow-container test_groups hide"
-                                style="display: none;">
-                                <div class="row hint">Assigned 1 time:</div>
-                                <ul class="groups_links_list hover-row"></ul>
-                                <div class="row assign">
-                                    <a href="/a/assign/groups/?test_id=2117377&amp;trk=assign_bottomrow_tests"
-                                        class="btn btn-assign-test">
-                                        Assign
-                                    </a>
-                                </div>
+                                <span class="caret">&nbsp;</span>
                             </div>
+                            <div class="accordion-fold subrow-container test_groups hide" style="display: block;">
+                            </div>
+                            {% endfor %}
                         </li>
                     </ul>
-                    <div
-                        class="row col_center hide"
-                        id="load_more_row"
-                        style="display: none;">
+
+                    <div class="row col_center hide" id="load_more_row" style="display: none;">
                         <a href="#" class="loadMore btn ">
                             Load More Tests
                         </a>
                     </div>
-                    <input
-                        type="hidden"
-                        class="loadMoreOnScroll"
-                        value=""/>
+                    <input type="hidden" class="loadMoreOnScroll" value="" />
 
                     <div class="table-utility row row-no-border-bottom bellow">
                         <div class="col-span-8">
@@ -153,19 +216,19 @@
                         <div class="col-span-2 col-btns hide_if_no_data_bottom">&nbsp;</div>
                     </div>
                 </div>
-                </form>
+            </form>
 
-            </div>
         </div>
     </div>
-    <script>
+</div>
+<script>
     const toggleList = (event) => {
-    const hiddenList = event.target.nextElementSibling;
-    if (hiddenList.style.display === 'none') {
-        hiddenList.style.display = 'block';
-    } else {
-        hiddenList.style.display = 'none';
-    }
+        const hiddenList = event.target.nextElementSibling;
+        if (hiddenList.style.display === 'none') {
+            hiddenList.style.display = 'block';
+        } else {
+            hiddenList.style.display = 'none';
+        }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -175,48 +238,31 @@
             button.addEventListener('click', toggleList);
         });
     });
-    $(document).ready(function() {
-        $('.cmtableTabs li').click(function() {
-            // Remove 'selected' class from all tabs
-            $('.cmtableTabs li').removeClass('selected');
-            
-            // Add 'selected' class to the clicked tab
-            $(this).addClass('selected');
+        $(document).ready(function () {
+            $('.cmtableTabs li').click(function () {
+                // Remove 'selected' class from all tabs
+                $('.cmtableTabs li').removeClass('selected');
+
+                // Add 'selected' class to the clicked tab
+                $(this).addClass('selected');
+            });
+        });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const linksButton = document.querySelector(".open_embed_links");
+        const linksinafold = document.querySelector(".linksinafold");
+
+        // Add a click event listener to the "Links" link
+        linksButton.addEventListener("click", function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            if (linksinafold.style.display === "none" || linksinafold.style.display === "") {
+                linksinafold.style.display = "block"; // Show the element
+            } else {
+                linksinafold.style.display = "none"; // Hide the element
+            }
         });
     });
-
-
-    </script>
-<script>
-    // Get the link elements by their IDs
-    const alphabeticalLink = document.getElementById("sortAlphabetical");
-    const recentLink = document.getElementById("sortDateAdded");
-
-    // Add click event listeners to the links
-    alphabeticalLink.addEventListener("click", function(event) {
-        event.preventDefault();
-
-        // Add a value attribute to the link based on the data-sort attribute
-        alphabeticalLink.setAttribute("value", alphabeticalLink.getAttribute("data-sort"));
-        // Optionally, update the link text
-        alphabeticalLink.textContent = "Alphabetical (Sorted)";
-
-        // You can reset other links here if needed
-        recentLink.removeAttribute("value");
-        recentLink.textContent = "Recent Time Added";
-    });
-
-    recentLink.addEventListener("click", function(event) {
-        event.preventDefault();
-
-        // Add a value attribute to the link based on the data-sort attribute
-        recentLink.setAttribute("value", recentLink.getAttribute("data-sort"));
-        // Optionally, update the link text
-        recentLink.textContent = "Recent Time Added (Sorted)";
-
-        // You can reset other links here if needed
-        alphabeticalLink.removeAttribute("value");
-        alphabeticalLink.textContent = "Alphabetical";
-    });
 </script>
+
 {% endblock %}

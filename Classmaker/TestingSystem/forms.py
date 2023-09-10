@@ -37,10 +37,7 @@ class QuestionForm(ModelForm):
         fields = ['text', 'ranking']
 
         widgets = {
-            'text': CKEditorUploadingWidget(attrs={
-                'class': 'form-question',
-                'rows': 4, 'required': 'true',
-            }),
+            'text': CKEditorUploadingWidget(),
             'ranking': NumberInput(attrs={
                 'class': 'form-question-rank',
                 'placeholder': 1,
@@ -53,7 +50,11 @@ class QuestionForm(ModelForm):
                 "unique_together": "%(model_name)s's %(field_labels)s are not unique.",
             }
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        # Set the 'content' field as not required
+        self.fields['text'].required = True
 
 class OptionForm(ModelForm):
     class Meta:
@@ -62,11 +63,7 @@ class OptionForm(ModelForm):
         fields = ['answer', 'is_correct']
 
         widgets = {
-            'answer': CKEditorUploadingWidget(attrs={
-                'class': 'form-option',
-                'rows':4,
-                'required': 'true',
-            }),
+            'answer': CKEditorUploadingWidget(),
             'is_correct': NullBooleanSelect(attrs={
                 'class':'form-correct',
                 'required':'true'
@@ -78,7 +75,11 @@ class OptionForm(ModelForm):
                 "unique_together": "%(model_name)s's %(field_labels)s are not unique.",
             }
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        # Set the 'content' field as not required
+        self.fields['answer'].required = True
 
 class TrueFalseForm(ModelForm):
     class Meta:
@@ -104,11 +105,7 @@ class FreeTextForm(ModelForm):
         fields = ['freetext']
 
         widgets = {
-            'freetext': CKEditorUploadingWidget(attrs={
-                'class': 'form-freetext',
-                'rows':4,
-                'required': 'true',
-            })
+            'freetext': CKEditorUploadingWidget()
         }
 
         error_messages = {
@@ -116,7 +113,11 @@ class FreeTextForm(ModelForm):
                 "unique_together": "%(model_name)s's %(field_labels)s are not unique.",
             }
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        # Set the 'content' field as not required
+        self.fields['freetext'].required = True
 
 OptionFormSet = modelformset_factory(Option, OptionForm, fields=('answer', 'is_correct'), extra=3)
 TrueFalseFormSet = modelformset_factory(TrueFalse, TrueFalseForm, fields=('true', 'false'), extra=1)

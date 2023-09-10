@@ -183,7 +183,17 @@ def EditQuestionAndFreeTextOptions(request, question_id, question_description):
 
 
 def TestViews(request):
-    return render(request, 'testingsystem/Test.html', {'objects': Test.objects.all()})
+    test = Test.objects.all()
+    if request.method == "GET":
+        if request.GET.get('alpabetical', None)=='True':
+            sorted_test = test.order_by('title')
+        elif request.GET.get('resent', None) == 'True':
+            sorted_test = test.order_by('-testCreatedTime')
+        else:
+            sorted_test = test
+    else:
+        sorted_test = test
+    return render(request, 'testingsystem/Test.html', {'objects': sorted_test})
 
 
 def main_page(request):

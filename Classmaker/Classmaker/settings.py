@@ -51,12 +51,13 @@ INSTALLED_APPS = [
 
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
 CKEDITOR_CONFIGS = {
     'default': {
         'allowedContent':True,
         'autoParagraph':False,
-        'height': 150,
-        'width': 1000,
+        'height': 100,
+        'width': 600,
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
@@ -69,25 +70,21 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
                        ]},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak']},
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             {'name': 'yourcustomtools', 'items': [
                 'Preview',
-
             ]},
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-        'tabSpaces': 4,
         'extraPlugins': ','.join([
             'uploadimage', # the upload image feature
-            'div',
             'autolink',
             'autoembed',
             'embedsemantic',
-            'autogrow',
             'widget',
             'lineutils',
             'clipboard',
@@ -163,7 +160,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -189,6 +186,8 @@ BOOTSTRAP_DATEPICKER_PLUS = {
         "showClear": True,
         "showTodayButton": True,
         "allowInputToggle": True,
+        'locale': 'ru',
+
     },
     # You can set date and event hook options using JavaScript, usage in README.
     # You can also set options for specific variant widgets only which overrides above options.
