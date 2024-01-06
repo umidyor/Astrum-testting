@@ -8,6 +8,7 @@ from .forms import SignUpForm
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.core.cache import cache
+from blogs.models import Cmodel
 
 import secrets
 def login_required_decorator(func):

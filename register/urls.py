@@ -21,6 +21,7 @@ urlpatterns = [
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('clear_cache',clear_cache,name='clear_cache'),
 
+
 ]
 #
 handler404 = views.custom_404_page

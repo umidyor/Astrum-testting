@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Size</title>
+</head>
+<body>
+    <form method="post">
+        {%csrf_token%}
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter questionnaire title" required="" style="width:100px;">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" placeholder="Enter questionnaire description" required="">
+        </div>
+        <div>
+             <label for="num_quest">Nechta so'rovnoma savollari bor?</label>
+            <input type="number" id="num_quest" name="num_quest" min="1" placeholder="enter a numbers of questionaires" required="">
+        </div>
+        <div>
+            <label for="time_quest">Choose time</label>
+            <input type="datetime-local" id="time_quest" name="time_quest" placeholder="enter a time of questionnaire" required="">
+        </div>
+        <button type="submit">Submit</button>
+
+    </form>
+</body>
+</html>

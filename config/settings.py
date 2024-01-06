@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'register',
     'test',
     'blogs',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -98,7 +100,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
+                    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -119,8 +122,6 @@ EMAIL_HOST_USER = 'umidyor007@gmail.com'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'hlcrgqqdqfhjalxb'  # Replace with your email password
 
 
-
-
-
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 

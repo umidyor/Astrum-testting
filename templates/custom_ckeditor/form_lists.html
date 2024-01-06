@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Form lists</title>
+</head>
+<body>
+    {%for i in related_numquests%}
+        <ul>
+            <li>
+                <h3><a href="{% url 'use_title' i.title i.author i.time_quest%}">{{i.title}}</a></h3>
+                <h2><i><strong><a href="{%url 'result' i.title i.author i.time_quest %}">Published by {{i.author}} at the {{i.time_quest}} date</a></strong></i></h2>
+            </li>
+        </ul>
+    {%endfor%}
+</body>
+</html>

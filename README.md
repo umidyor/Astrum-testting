@@ -1,23 +1,22 @@
 # Astrum-testting
 
-<h2>Clone this repository</h2>
- ```
-   # Clone the repository
+# Clone this repository
+```shell
    git clone https://github.com/umidyor/Astrum-testting.git
-  ```
-<h2>Install requirements</h2>
 ```
-pip install -r requirements.txt
+# Install requirements
+```shell
+  pip install -r requirements.txt
 ```
-<h2>Makemigartions</h2>
+# Makemigartions
+```shell
+  python manage.py makemigrations
 ```
-python manage.py makemigrations
+# Migrate
+```shell
+  python manage.py migrate
 ```
-<h2>Migrate</h2>
-```
-python manage.py migrate
-```
-<h2>Runserver</h2>
-```
-python manage.py runserver
+# Runserver
+```shell
+  python manage.py runserver
 ```

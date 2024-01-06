@@ -1,5 +1,6 @@
 from django import forms
-from .models import Post
+from .models import Post,Cmodel,NumQuest
+from django.forms import formset_factory
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -24,3 +25,21 @@ class PostSearchForm(forms.Form):
             'style': 'border-radius: 5px;'
         })
     )
+
+
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+class CKEditorForm(forms.ModelForm):
+    class Meta:
+        model = Cmodel
+        fields = ['content']
+        widgets = {'content': CKEditorUploadingWidget()}
+
+
+
+class NumQuestForm(forms.ModelForm):
+    class Meta:
+        model=NumQuest
+        fields=['title','description']
+        widgets={'title': forms.TextInput(attrs={'max_length': 500}),'description':forms.Textarea()}
+

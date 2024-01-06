@@ -1,0 +1,17 @@
+
+
+
+
+{% load static %}
+
+
+
+<form method="post">
+    {% csrf_token %}
+    {{num_quest_form}}
+    {% for form in cmodels %}
+        {{ form.as_p }}
+        {{ form.media }}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>

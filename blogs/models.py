@@ -73,3 +73,39 @@ class Edd(models.Model):
 
     def __str__(self):
         return self.full_name
+
+class NumQuest(models.Model):
+    title=models.CharField(max_length=300)
+    description=models.TextField()
+    num_quest=models.IntegerField()
+    time_quest=models.DateTimeField(default=datetime.now)
+    author=models.ForeignKey(User,on_delete=models.SET_NULL,null=True,related_name="rel_auth")
+    def __str__(self):
+        return self.title
+
+
+from ckeditor_uploader.fields import RichTextUploadingField
+
+class Cmodel(models.Model):
+    content = RichTextUploadingField(blank=True)
+    author = models.CharField(max_length=500)
+    date_quest=models.DateTimeField(default=datetime.now)
+    title = models.ForeignKey(NumQuest, on_delete=models.CASCADE, related_name="Num_quests")
+    slug_link=models.URLField(max_length=500)
+
+
+
+
+
+
+class ResponseModel(models.Model):
+    response_text = models.TextField()
+    response_title=models.ForeignKey(NumQuest,on_delete=models.CASCADE,related_name='rel_response_title')
+    response_author=models.ForeignKey(User,on_delete=models.CASCADE)
+    response_date=models.DateTimeField(default=datetime.now)
+
+
+
+
+
+
