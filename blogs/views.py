@@ -281,7 +281,7 @@ def use_title(request, title, author, date_quest):
             )
             response_instance.save()
 
-        return HttpResponse("good job🤧")
+        return redirect("listforms")
 
     return render(request, "custom_ckeditor/use_title.html", {'form_cmodel': form_cmodel})
 
@@ -291,9 +291,8 @@ def use_title(request, title, author, date_quest):
 ########
 @login_required_decorator
 def result(request,title,author,date):
-    user_instance = User.objects.get(username='Umidyor')
-    numquest_title = NumQuest.objects.get(title="Futbol musobaqasi", author=user_instance)
-    responses = ResponseModel.objects.filter(response_title=numquest_title, response_author=user_instance,
-                                             response_date="2024-01-04 15:22:00+00:00")
-    table_column = Cmodel.objects.filter(title=numquest_title, date_quest="2024-01-04 15:22:00+00:00")
-    return render(request,"custom_ckeditor/results.html")
+    user_instance = User.objects.get(username=author)
+    numquest_title = NumQuest.objects.get(title=title, author=user_instance)
+    responses = ResponseModel.objects.filter(response_title=numquest_title, response_author=user_instance,response_date=date)
+    table_column = Cmodel.objects.filter(title=numquest_title, date_quest=date)
+    return render(request,"custom_ckeditor/results.html",{'responses':responses,'table_column':table_column})

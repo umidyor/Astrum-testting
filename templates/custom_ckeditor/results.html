@@ -1,10 +1,25 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Results</title>
+    <link rel="stylesheet" href="{% static 'css/results.css' %}">
 </head>
 <body>
-
+    <table>
+        <tr>
+            {% for column in table_column %}
+                <th>{{column.content|safe}}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {%for response in responses%}
+                <tr>
+                    <th>{{response.response_text}}</th>
+                </tr>
+            {%endfor%}
+        </tr>
+    </table>
 </body>
 </html>

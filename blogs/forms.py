@@ -41,5 +41,5 @@ class NumQuestForm(forms.ModelForm):
     class Meta:
         model=NumQuest
         fields=['title','description']
-        widgets={'title': forms.TextInput(attrs={'max_length': 500}),'description':forms.Textarea()}
+        widgets={'title': forms.TextInput(attrs={'max_length': 500,'class':'title'}),'description':forms.Textarea(attrs={'class':'description'})}
 

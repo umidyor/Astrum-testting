@@ -1,30 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Size</title>
-</head>
-<body>
-    <form method="post">
-        {%csrf_token%}
-        <div>
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" placeholder="Enter questionnaire title" required="" style="width:100px;">
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Enter questionnaire description" required="">
-        </div>
-        <div>
-             <label for="num_quest">Nechta so'rovnoma savollari bor?</label>
-            <input type="number" id="num_quest" name="num_quest" min="1" placeholder="enter a numbers of questionaires" required="">
-        </div>
-        <div>
-            <label for="time_quest">Choose time</label>
-            <input type="datetime-local" id="time_quest" name="time_quest" placeholder="enter a time of questionnaire" required="">
-        </div>
-        <button type="submit">Submit</button>
+<html>
 
-    </form>
+<head>
+    <title>Number of quests</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 4px 8px 0 rgba(0, 0, 0, 1);
+            border-radius: 0px;
+        }
+
+        h1 {
+            color: #444;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        form label {
+            color: #666;
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form textarea {
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 0px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #3e8e41;
+        }
+
+        form button:focus {
+            outline: none;
+        }
+
+        form textarea {
+            height: 40px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🪶 Number quests 🪶</h1>
+
+        <form method="post">
+            {%csrf_token%}
+            <div>
+                <label for="title">Title:</label>
+                <input id="replace" name="title" id="title" placeholder="Enter questionnaire title" required="" style="width:520px;
+                     border-color: rgba(0, 0, 0, 1); " type="text" />
+
+            </div>
+
+            <div>
+                <label for="num_quest">Have survey questions?</label>
+                <input type="number" id="num_quest" name="num_quest" min="1"
+                    placeholder="Enter a numbers of questionaires" required="" style="width:520px; padding: 10px;">
+            </div>
+
+            <div style="position: relative;top: 6px;">
+                <label for="description">Description:</label>
+
+                <textarea  id="description" name="description" placeholder="Enter questionnaire description"
+                    type="text" required="" style="border-color: rgba(0, 0, 0, 1);"></textarea>
+            </div>
+
+            <div>
+                <label for="time_quest">Choose time</label>
+                <input name="time_quest" type="datetime-local" id="time_quest"
+                    placeholder="enter a time of questionnaire" required="" style="width:160px;  padding: 10px;">
+            </div>
+            <button style="text-align:
+             center; position: relative;
+              top: 15px; left: 38%; " type="submit">Submit</button>
+        </form>
+    </div>
 </body>
+
 </html>
