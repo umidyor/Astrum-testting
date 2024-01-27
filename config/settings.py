@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'blogs',
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -124,4 +125,4 @@ EMAIL_HOST_PASSWORD = 'hlcrgqqdqfhjalxb'  # Replace with your email password
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'

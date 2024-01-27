@@ -90,23 +90,23 @@
     <div class="container">
         <h1>🪶 Number quests 🪶</h1>
 
-        <form method="post">
+        <form method="post" id="questForm">
             {%csrf_token%}
             <div>
-                <label for="title">Title:</label>
-                <input id="replace" name="title" id="title" placeholder="Enter questionnaire title" required="" style="width:520px;
+                <label for="title">Title</label>
+                <input name="title" id="title" placeholder="Enter questionnaire title" style="width:520px;
                      border-color: rgba(0, 0, 0, 1); " type="text" />
 
             </div>
 
             <div>
-                <label for="num_quest">Have survey questions?</label>
+                <label for="num_quest">How many survey questions do you have?</label>
                 <input type="number" id="num_quest" name="num_quest" min="1"
                     placeholder="Enter a numbers of questionaires" required="" style="width:520px; padding: 10px;">
             </div>
 
             <div style="position: relative;top: 6px;">
-                <label for="description">Description:</label>
+                <label for="description">Description</label>
 
                 <textarea  id="description" name="description" placeholder="Enter questionnaire description"
                     type="text" required="" style="border-color: rgba(0, 0, 0, 1);"></textarea>
@@ -119,9 +119,60 @@
             </div>
             <button style="text-align:
              center; position: relative;
-              top: 15px; left: 38%; " type="submit">Submit</button>
+              top: 15px; left: 38%; "  onclick="submitForm();" type="submit">Submit</button>
         </form>
+        {% if error == 1 %}
+            <div class="error-message">
+                <h1>Error: Duplicate Title</h1>
+            </div>
+        {% endif %}
+        <div id="errorContainer"></div>
     </div>
-</body>
+<!--<script>-->
+<!--    function submitForm() {-->
+<!--        // Get form data-->
+<!--        var formData = new FormData(document.getElementById('questForm'));-->
 
+<!--        // Send POST request-->
+<!--        fetch('/api/title/', {-->
+<!--            method: 'POST',-->
+<!--            body: formData,-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                // Handle the response-->
+<!--                if (data.message === "Duplicate title") {-->
+<!--                    console.log("Error: Duplicate Title");-->
+<!--                    showError("Error: Duplicate Title");-->
+<!--                } else if (data.message === "Title is None or not provided") {-->
+<!--                    showError("Error: Title is None or not provided");-->
+<!--                } else {-->
+<!--                    // Handle other responses-->
+<!--                    console.log("Form submitted successfully");-->
+
+<!--                    // Redirect to the specified URL-->
+<!--                    window.location.href = data.redirect_url;-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error:', error);-->
+<!--                showError('An unexpected error occurred.');-->
+<!--            });-->
+<!--    }-->
+
+<!--    function showError(message) {-->
+<!--        var errorContainer = document.getElementById('errorContainer');-->
+<!--        errorContainer.innerHTML = '<h1>' + message + '</h1>';-->
+<!--    }-->
+
+<!--    // Prevent form submission on pressing Enter key-->
+<!--    document.getElementById('questForm').addEventListener('submit', function (event) {-->
+<!--        event.preventDefault();-->
+<!--        submitForm();-->
+<!--    });-->
+<!--</script>-->
+
+
+
+</body>
 </html>

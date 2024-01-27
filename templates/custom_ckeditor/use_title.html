@@ -9,19 +9,40 @@
 </head>
 <body>
 
-    <div>
+    <style>
+        .all_class_form{}
+        .title_and_description_class{}
+        .title{}
+        .description{}
+        .label_class{}
+        .input_class{}
+        .submit_button{}
+
+    </style>
+
+    <div class="all_class_form">
         <form method="post">
             {%csrf_token%}
+
+            <div class="title_and_description_class">
+                <div class="title">
+                    {{tit_dec.title}}
+                </div>
+                <div class="description">
+                    {{tit_dec.description}}
+                </div>
+            </div>
+
             {% for form in form_cmodel %}
                 <ul>
                     <li>
-                        <label for={{form.pk}}>{{ form.content|safe }}</label>
-                        <input  id={{form.pk}} name={{form.pk}} placeholder="Enter your answer?" required="">
+                        <label for={{form.pk}} class="label_class">{{ form.content|safe }}</label>
+                        <input  id={{form.pk}} name={{form.pk}}  class="input_class" placeholder="Enter your answer?" required="">
                     </li>
                 </ul>
             {% endfor %}
             <div>
-                <button type="submit">Submit</button>
+                <button class="submit_button" type="submit">Submit</button>
             </div>
         </form>
     </div>

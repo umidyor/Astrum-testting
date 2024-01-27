@@ -3,15 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Form lists</title>
+    <script>
+        function confirmDelete(url) {
+            var result = confirm("Are you sure you want to delete?");
+            if (result) {
+                window.location.href = url;  // Redirect to the delete URL
+            }
+        }
+
+        function confirmEdit(url) {
+            var result = confirm("Are you sure you want to edit?");
+            if (result) {
+                window.location.href = url;  // Redirect to the edit URL
+            }
+        }
+
+        function redirectToShare(url) {
+            // Perform any additional actions if needed
+            window.location.href = url;  // Redirect to the share URL
+        }
+    </script>
 </head>
 <body>
-    {%for i in related_numquests%}
+
+    <style>
+        .all_class_list{}
+        .title-list{}
+        .publish-list{}
+        .share_anketa{}
+        .delete_anketa{}
+        .edit_button{}
+    </style>
+
+    {% for i in related_numquests %}
+    <div class="all_class_list">
         <ul>
             <li>
-                <h3><a href="{% url 'use_title' i.title i.author i.time_quest%}">{{i.title}}</a></h3>
-                <h2><i><strong><a href="{%url 'result' i.title i.author i.time_quest %}">Published by {{i.author}} at the {{i.time_quest}} date</a></strong></i></h2>
+                <div>
+                    <h3 class="title-list"><a href="{% url 'use_title' i.title i.author i.time_quest %}">{{ i.title }}</a></h3>
+                    <h2 class="publish-list"><i><strong><a href="{% url 'result' i.title i.author i.time_quest %}">Published by {{ i.author }} at the {{ i.time_quest }} date</a></strong></i></h2>
+                    <button type="button" class="share_anketa" onclick="redirectToShare('{% url 'share_anketa' i.title i.author i.time_quest %}')"><strong>Share</strong></button>
+                    <button type="button" class="delete_anketa" onclick="confirmDelete('{% url 'delete_anketa' i.title i.author i.time_quest %}')"><strong>Delete</strong></button>
+                    <button type="button" class="edit_button" onclick="confirmEdit('{{ i.Num_quests.all.first.slug_link }}')"><strong>Edit</strong></button>
+                </div>
             </li>
         </ul>
-    {%endfor%}
+    </div>
+    {% endfor %}
 </body>
 </html>

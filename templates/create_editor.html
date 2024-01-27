@@ -1,26 +1,181 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+<link rel="stylesheet" href="{% static 'css/create-editor.css' %}">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="{%static 'css/create_editor.css'%}">
+    <title>Editor Questionaire</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var notification = document.getElementById('notification');
+            if (notification.innerText.trim() === '') {
+                notification.style.display = 'none';
+            } else {
+                notification.style.display = 'block';
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            background-color: #c4c4c4b6;
+        }
+
+        .warning-message {
+            background: #f44336;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+            font-size: 16px;
+        }
+
+        .asp {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+        }
+
+
+        .title {
+
+            border-radius: 10px;
+            position: relative;
+
+            left: 30%;
+            padding: 8px;
+            width: 294px;
+        }
+
+        .description {
+            position: relative;
+            border-radius: 10px;
+
+        }
+
+        .title-div {
+            position: relative;
+        }
+
+        .title_quest {
+            position: relative;
+            left: 30%;
+        }
+
+        .desc-div {
+
+            position: relative;
+            left: 30%;
+        }
+
+        .description_quest {
+            position: relative;
+
+
+
+        }
+
+        .submit-button {
+            position: relative;
+            left: 45%;
+            width: 80px;
+            padding: 8px;
+            background-color: #0011ff;
+            ;
+            color: #ffffff;
+            border-radius: 6px;
+        }
+
+        .submit-button:hover {
+            cursor: pointer;
+            background-color: #11038b;
+            color: #ffffff;
+        }
+
+        .continer {
+            border-left: 10px solid rgb(162, 0, 255);
+            /* Chap tarafga border */
+            border-top: 10px solid rgb(25, 0, 255);
+            border-right: 10px solid rgb(162, 0, 255);
+            /* Chap tarafga border */
+            border-bottom: 10px solid rgb(25, 0, 255);
+            /* Yuqori tarafga border */
+            position: relative;
+
+            left: 26%;
+            width: 860px;
+            height: 340px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            padding: 20px;
+        }
+
+        .two-continer {
+            border-right: 10px solid rgb(162, 0, 255);
+            /* Chap tarafga border */
+            border-bottom: 10px solid rgb(25, 0, 255);
+            border-left: 10px solid rgb(162, 0, 255);
+            /* Chap tarafga border */
+            border-top: 10px solid rgb(25, 0, 255);
+            position: relative;
+
+            left: 26%;
+            width: 860px;
+            height: 500px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            padding: 20px;
+
+
+
+        }
+    </style>
 </head>
+
 <body>
 
-
-
-
-
-<form method="post">
-    {% csrf_token %}
-    {{num_quest_form}}
-    {% for form in cmodels %}
-        {{ form.as_p }}
-        {{ form.media }}
-    {% endfor %}
-    <button type="submit">Submit</button>
-</form>
+    <div class="notification" id="notification">
+        {% for message in messages %}
+        <ul>
+            <li class="warning-message">
+                {{ message }}
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+    <div class="continer">
+        <form method="post">
+            {% csrf_token %}
+            <div class="title-div">
+                <h3 class="title_quest">Title</h3>
+                {{ num_quest_form.title }}
+            </div>
+            <div class="desc-div">
+                <h3 class="description_quest">Description</h3>
+                {{num_quest_form.description}}
+            </div>
+            {% for form in cmodels %}
+    </div>
+    <div class="two-continer">
+        <ul class="asp">
+            <li>
+                {{ form.as_p }}
+                {{ form.media }}
+            </li>
+        </ul>
+        {% endfor %}
+        <button type="submit" class="submit-button">Submit</button>
+    </div>
+    </form>
 
 </body>
+
 </html>

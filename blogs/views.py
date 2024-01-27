@@ -6,6 +6,9 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,HttpResponseNotFound
 from .generation_slug import generate_secure_slug
 from django.contrib.auth.models import User
+
+from django.contrib import messages
+
 def login_required_decorator(f):
    return login_required(f,login_url="login")
 @login_required_decorator
@@ -150,7 +153,9 @@ def share_post(request, post_id,post_slug):
 
 
 from .forms import CKEditorForm,NumQuestForm
-@login_required_decorator
+
+"""NEED OTHER CODE"""
+# @login_required_decorator
 # def create_editor_view(request, author,cmid, num_quest, title, time_quest, slug):
 #     if author==request.user.username:
 #         nqm = NumQuest.objects.get(pk=cmid)
@@ -176,6 +181,7 @@ from .forms import CKEditorForm,NumQuestForm
 #     return render(request, 'create_editor.html',
 #                   {'cmodels':cmodelforms})
 
+@login_required_decorator
 def create_editor_view(request, author, cmid,num_quest, title, time_quest, slug):
     if author == request.user.username:
         nqm = get_object_or_404(NumQuest, pk=cmid)
@@ -185,9 +191,15 @@ def create_editor_view(request, author, cmid,num_quest, title, time_quest, slug)
             num_quest_form = NumQuestForm(request.POST, instance=nqm)
             if num_quest_form.is_valid():
                 # Check if a NumQuest instance with the same title already exists
-                existing_num_quest = NumQuest.objects.filter(title=num_quest_form.cleaned_data['title']).exclude(pk=cmid).first()
-                if existing_num_quest:
-                    return HttpResponse(f"A NumQuest with this title already exists. Please try again.")
+                # existing_num_quest = NumQuest.objects.filter(title=num_quest_form.cleaned_data['title']).exclude(pk=cmid).first()
+                # if existing_num_quest:
+                #     # context = {
+                #     #     'error': 1
+                #     # }
+                #     messages.warning(request, "This 'title' is already written.Make any letter lowercase or uppercase to keep the same title!")
+                #     return redirect("create_editor", author=author, cmid=cmid, num_quest=num_quest,
+                #                     title=title, time_quest=time_quest, slug=slug)
+
 
                 num_quest_form.save()
 
@@ -219,26 +231,69 @@ def create_editor_view(request, author, cmid,num_quest, title, time_quest, slug)
 
 
 
+
 @login_required_decorator
 def list_forms(request):
     user_instance = User.objects.get(username=request.user)
-
     related_numquests = NumQuest.objects.filter(author=user_instance)
     return render(request,"custom_ckeditor/form_lists.html",{'related_numquests':related_numquests})
 
+"""NEDD OTHER CODES"""
+
+# @login_required_decorator
+# def range_numb(request):
+#     if request.method == 'POST':
+#         num_quest = int(request.POST["num_quest"])
+#         title = request.POST["title"]
+#         time_quest = request.POST["time_quest"]
+#         author=request.user
+#         slug = generate_secure_slug(title)
+#
+#         author_instance = get_object_or_404(User, username=author)
+#
+#         check_title_use_author=NumQuest.objects.filter(author=author_instance,title=title).exists()
+#         if check_title_use_author==False:
+#             num_quest_instance = NumQuest(
+#                 title=title,
+#                 description=request.POST["description"],
+#                 num_quest=num_quest,
+#                 time_quest=time_quest,
+#                 author=author,
+#             )
+#             num_quest_instance.save()
+#         else:
+#             return HttpResponse(f"<h1>This '{title}' has your blogs.Rewrite other title!Please<a href='number_quest'>try again🤏</a></h1>")
+#
+#         slug_url = f"http://127.0.0.1:8000/create_editor/{author}/{num_quest_instance.id}/{num_quest}/{title}/{time_quest}/{slug}/edit"
+#         # Create num_quest instances in Cmodel with the same title and time_quest
+#         for i in range(num_quest):
+#             model = Cmodel.objects.create(
+#                 title=num_quest_instance,
+#                 date_quest=time_quest,
+#                 author=author,
+#                 slug_link=slug_url
+#             )
+#         return redirect("create_editor", author=author, cmid=num_quest_instance.id, num_quest=num_quest, title=title, time_quest=time_quest, slug=slug)
+#     return render(request, "custom_ckeditor/form_range.html")
+
+
+
+
+from django.template import loader
 @login_required_decorator
 def range_numb(request):
+    num_quest_instance = None  # Initialize num_quest_instance outside the if block
     if request.method == 'POST':
         num_quest = int(request.POST["num_quest"])
         title = request.POST["title"]
         time_quest = request.POST["time_quest"]
-        author=request.user
+        author = request.user
         slug = generate_secure_slug(title)
 
         author_instance = get_object_or_404(User, username=author)
 
-        check_title_use_author=NumQuest.objects.filter(author=author_instance,title=title).exists()
-        if check_title_use_author==False:
+        check_title_use_author = NumQuest.objects.filter(author=author_instance, title=title).exists()
+        if check_title_use_author == False:
             num_quest_instance = NumQuest(
                 title=title,
                 description=request.POST["description"],
@@ -248,7 +303,11 @@ def range_numb(request):
             )
             num_quest_instance.save()
         else:
-            return HttpResponse(f"<h1>This '{title}' has your blogs.Rewrite other title!Please<a href='number_quest'>try again🤏</a></h1>")
+            template = loader.get_template('custom_ckeditor/form_range.html')
+            context = {
+                'error': 1
+            }
+            return HttpResponse(template.render(context, request))
 
         slug_url = f"http://127.0.0.1:8000/create_editor/{author}/{num_quest_instance.id}/{num_quest}/{title}/{time_quest}/{slug}/edit"
         # Create num_quest instances in Cmodel with the same title and time_quest
@@ -256,23 +315,25 @@ def range_numb(request):
             model = Cmodel.objects.create(
                 title=num_quest_instance,
                 date_quest=time_quest,
-                author=author,
+                author=request.user,
+                cmid=num_quest_instance.id,
                 slug_link=slug_url
             )
-        return redirect("create_editor", author=author, cmid=num_quest_instance.id, num_quest=num_quest, title=title, time_quest=time_quest, slug=slug)
+        return redirect("create_editor", author=author, cmid=num_quest_instance.id, num_quest=num_quest,
+                        title=title, time_quest=time_quest, slug=slug)
     return render(request, "custom_ckeditor/form_range.html")
 
 
+
+
 def use_title(request, title, author, date_quest):
+    author_instance = get_object_or_404(User, username=author)
     title_instance = get_object_or_404(NumQuest, title=title,time_quest=date_quest)
-    form_cmodel = Cmodel.objects.filter(title=title_instance, author=author, date_quest=date_quest)
-    author_instance=get_object_or_404(User,username=author)
+    form_cmodel = Cmodel.objects.filter(title=title_instance, author=author_instance, date_quest=date_quest)
     title_instance_2 = NumQuest.objects.get(title=title_instance, author=author_instance)
     if request.method == 'POST':
         for form in form_cmodel:
             response_text = request.POST.get(str(form.pk))
-            print(response_text)
-            print(form)
             response_instance = ResponseModel(
                 response_text=response_text,
                 response_title=title_instance_2,
@@ -280,10 +341,11 @@ def use_title(request, title, author, date_quest):
                 response_date=date_quest,
             )
             response_instance.save()
+        if request.user.username==author:
+            return redirect("listforms")
+        return HttpResponse("Sizning so'rovnoma javoblaringiz qabul qilindi!")
 
-        return redirect("listforms")
-
-    return render(request, "custom_ckeditor/use_title.html", {'form_cmodel': form_cmodel})
+    return render(request, "custom_ckeditor/use_title.html", {'form_cmodel': form_cmodel,'tit_dec':title_instance_2})
 
 
 
@@ -295,4 +357,64 @@ def result(request,title,author,date):
     numquest_title = NumQuest.objects.get(title=title, author=user_instance)
     responses = ResponseModel.objects.filter(response_title=numquest_title, response_author=user_instance,response_date=date)
     table_column = Cmodel.objects.filter(title=numquest_title, date_quest=date)
-    return render(request,"custom_ckeditor/results.html",{'responses':responses,'table_column':table_column})
+    grouped_data = group_list(responses, len(table_column))
+
+    return render(request,"custom_ckeditor/results.html",{'responses':grouped_data,'table_column':table_column})
+
+
+def share_anketa(request,title,author,date):
+    user_instance = User.objects.get(username=author)
+    anketa=get_object_or_404(NumQuest,title=title,author=user_instance,time_quest=date)
+    return render(request,"share_anketa.html",{'anketa_url':anketa})
+
+
+def delete_anketa(request,title,author,date):
+    user_instance = User.objects.get(username=author)
+    anketa_delete = get_object_or_404(NumQuest, title=title, author=user_instance, time_quest=date)
+    anketa_delete.delete()
+    return redirect("listforms")
+def group_list(data_list, group_size):
+    return [data_list[i:i+group_size] for i in range(0, len(data_list), group_size)]
+
+
+
+# from rest_framework.response import Response
+# from rest_framework import views,status
+# class TitleAPIView(views.APIView):
+#     def post(self, request, *args, **kwargs):
+#         title = request.data.get('title')
+#         num_quest = request.data.get("num_quest")
+#         description = request.data.get("description")
+#         time_quest = request.data.get("time_quest")
+#         author = request.user
+#         slug = generate_secure_slug(title)
+#
+#         author_instance = get_object_or_404(User, username=author)
+#
+#         check_title_use_author = NumQuest.objects.filter(author=author_instance, title=title).exists()
+#         if title is not None:
+#             if check_title_use_author:
+#                 return Response({'message': "Duplicate title"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#             num_quest_instance = NumQuest(
+#                 title=title,
+#                 description=description,
+#                 num_quest=num_quest,
+#                 time_quest=time_quest,
+#                 author=author,
+#             )
+#             num_quest_instance.save()
+#             slug_url = f"http://127.0.0.1:8000/create_editor/{author}/{num_quest_instance.id}/{num_quest}/{title}/{time_quest}/{slug}/edit"
+#             for i in range(int(num_quest)):
+#                 model = Cmodel.objects.create(
+#                     title=num_quest_instance,
+#                     date_quest=time_quest,
+#                     author=request.user,
+#                     cmid=num_quest_instance.id,
+#                     slug_link=slug_url
+#                 )
+#
+#         redirect_url = f"create_editor/{author}/{num_quest_instance.id}/{num_quest}/{title}/{time_quest}/{slug}/edit"
+#         return Response({"redirect_url": redirect_url}, status=status.HTTP_200_OK)
+
+        # return Response({'message': "Title is None or not provided"}, status=status.HTTP_400_BAD_REQUEST)

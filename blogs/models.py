@@ -84,13 +84,18 @@ class NumQuest(models.Model):
         return self.title
 
 
+    def get_absolute_url(self):
+        # Use the 'posts' URL pattern name with appropriate arguments
+        return reverse('use_title', args=[self.title,self.author, self.time_quest])
+
 from ckeditor_uploader.fields import RichTextUploadingField
 
 class Cmodel(models.Model):
     content = RichTextUploadingField(blank=True)
-    author = models.CharField(max_length=500)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
     date_quest=models.DateTimeField(default=datetime.now)
     title = models.ForeignKey(NumQuest, on_delete=models.CASCADE, related_name="Num_quests")
+    cmid=models.IntegerField()
     slug_link=models.URLField(max_length=500)
 
 

@@ -10,16 +10,19 @@
     <table>
         <tr>
             {% for column in table_column %}
-                <th>{{column.content|safe}}</th>
+                <th>{{ column.content|safe }}</th>
             {% endfor %}
         </tr>
+        {% for response in responses %}
+
         <tr>
-            {%for response in responses%}
-                <tr>
-                    <th>{{response.response_text}}</th>
-                </tr>
-            {%endfor%}
+            {% for group in response %}
+                <td>{{ group.response_text }}</td>
+            {% endfor %}
         </tr>
+        {% endfor %}
+
+
     </table>
 </body>
 </html>

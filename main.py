@@ -109,13 +109,15 @@ user_instance = User.objects.get(username='Umidyor')
 #     s=str(i.response_title).split("^")
 #     print(s[1])
 #
-# title_instance = get_object_or_404(NumQuest, title="salom")
-# form_cmodel = Cmodel.objects.filter(title=title_instance, author="Umidyor", date_quest="2024-01-03T19:33")
+from time import timezone
+# title_instance = get_object_or_404(NumQuest, title="Ziyod")
+# form_cmodel = Cmodel.objects.filter(title=title_instance, author=user_instance).first()
 # for form in form_cmodel:
-#     print(form.title)
-#
+#     print(form.slug_link)
+# for i in form_cmodel:
+#     print(i)
 # title_instance_2=NumQuest.objects.get(title=title_instance)
-# print(title_instance_2)
+# print(form_cmodel.slug_link.split("/")[-2])
 
 # author_instance=get_object_or_404(User,username="Umidyor")
 # print(author_instance)
@@ -124,8 +126,23 @@ user_instance = User.objects.get(username='Umidyor')
 # for_numquest_form=get_object_or_404(NumQuest,title="salom",author=user_instance)
 # print(for_numquest_form)
 
-from blogs.models import ResponseModel,NumQuest
-user_instance = User.objects.get(username='Umidyor')
-numquest_title=NumQuest.objects.get(title="Futbol musobaqasi",author=user_instance)
-responses=ResponseModel.objects.filter(response_title=numquest_title,response_author=user_instance,response_date="2024-01-04 15:22:00+00:00")
-table_column=Cmodel.objects.filter(title=numquest_title,date_quest="2024-01-04 15:22:00+00:00")
+# from blogs.models import ResponseModel,NumQuest
+# user_instance = User.objects.get(username='Umidyor')
+# numquest_title=NumQuest.objects.get(title="Futbol musobaqasi",author=user_instance)
+# responses=ResponseModel.objects.filter(response_title=numquest_title,response_author=user_instance,response_date="2024-01-04 15:22:00+00:00")
+# table_column=Cmodel.objects.filter(title=numquest_title,date_quest="2024-01-04 15:22:00+00:00")
+
+# anketa=get_object_or_404(NumQuest,title="Futbol",author=user_instance,time_quest="2024-01-11 22:08:00+00:00")
+# print(anketa.get_absolute_url)
+
+# delete_list=get_object_or_404(Cmodel,title=title_instance,author=user_instance,date_quest="2024-01-13 19:47:00+00:00").first()
+# print(delete_list.slug_link)
+
+user_instance = User.objects.get(username="Umidyor")
+numquest_title = NumQuest.objects.get(title="Futbol", author=user_instance)
+responses = ResponseModel.objects.filter(response_title=numquest_title, response_author=user_instance,response_date="2024-01-23 15:03:00+00:00")
+table_column = Cmodel.objects.filter(title=numquest_title, date_quest="2024-01-23 15:03:00+00:00")
+
+
+
+

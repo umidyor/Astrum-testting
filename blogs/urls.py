@@ -2,7 +2,9 @@ from django.urls import path
 from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
+
 urlpatterns=[
+    # path('api/title/',TitleAPIView.as_view(),name='api_title'),
     path('blog/',create_post,name='blog'),
     path('profile/',user_profile,name='profile'),
     path('profile/<int:post_id>/<slug:post_slug>/',view_post,name='posts'),
@@ -18,6 +20,8 @@ urlpatterns=[
     path('listforms/',list_forms,name='listforms'),
     path('listforms/<str:title>/<str:author>/<str:date_quest>',use_title,name='use_title'),
     path('result/<str:title>/<str:author>/<str:date>',result,name='result'),
+    path("share_anketa/<str:title>/<str:author>/<str:date>",share_anketa,name='share_anketa'),
+    path("delete_anketa/<str:title>/<str:author>/<str:date>",delete_anketa,name='delete_anketa'),
 ]
 
 # if settings.DEBUG:

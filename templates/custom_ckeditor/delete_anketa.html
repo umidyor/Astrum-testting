@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Want delete</title>
+</head>
+<body>
+    {%for i in related_numquests%}
+        <ul>
+            <li>
+                <div>
+                    <button type="button" class="yes-btn"><a href="{% url 'delete_anketa' i.title i.author i.time_quest %}"><strong>Yes</strong></a></button>
+                    <button type="button" class="no-btn"><a href="{% url 'listforms' %}"><strong>No</strong></a></button>
+                </div>
+            </li>
+        </ul>
+    {%endfor%}
+
+</body>
+</html>
